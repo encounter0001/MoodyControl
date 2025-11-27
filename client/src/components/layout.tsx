@@ -50,7 +50,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 Commands
               </a>
             </Link>
-            <a href="#" className="text-sm font-bold text-gray-400 hover:text-pink-400 transition-all duration-300">Support</a>
+            <a href="https://discord.com/servers/wyno-is-live-1129884940385914880" className="text-sm font-bold text-gray-400 hover:text-pink-400 transition-all duration-300">Support</a>
           </nav>
 
           <div className="flex items-center gap-4">
@@ -124,6 +124,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
               <Link href="/commands">
                 <a className="block text-sm font-bold text-gray-400 hover:text-pink-400">Commands</a>
               </Link>
+              <a href="https://discord.com/servers/wyno-is-live-1129884940385914880" className="block text-sm font-bold text-gray-400 hover:text-pink-400">Support</a>
               {isAuthenticated && (
                 <Link href="/dashboard">
                   <Button className="w-full font-bold bg-gradient-to-r from-pink-500 to-orange-500 text-white rounded-lg">
