@@ -110,9 +110,11 @@ export default function Home() {
             transition={{ duration: 0.8, delay: 0.6 }}
             className="flex flex-col sm:flex-row items-center justify-center gap-4"
           >
-            <Button size="lg" className="h-14 px-10 text-lg rounded-xl font-bold bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white hover:scale-105 transition-all duration-300 shadow-lg shadow-pink-500/40">
-              Add to Discord
-            </Button>
+            <a href="https://discord.com/oauth2/authorize?client_id=1344874349580255293&permissions=321609335434304&integration_type=0&scope=bot">
+              <Button size="lg" className="h-14 px-10 text-lg rounded-xl font-bold bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white hover:scale-105 transition-all duration-300 shadow-lg shadow-pink-500/40">
+                Add to Discord
+              </Button>
+            </a>
             
             {isAuthenticated ? (
               <Link href="/dashboard">

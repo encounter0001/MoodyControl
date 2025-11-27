@@ -95,27 +95,27 @@ export default function Commands() {
         <motion.h1 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-4xl md:text-6xl font-display font-bold text-white"
+          className="text-5xl md:text-6xl font-display font-black text-white"
         >
-          Command <span className="text-primary">Library</span>
+          Command <span className="bg-gradient-to-r from-pink-400 to-cyan-400 bg-clip-text text-transparent">Library</span>
         </motion.h1>
         <motion.p 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="text-lg text-muted-foreground max-w-2xl mx-auto"
+          className="text-xl text-gray-400 max-w-2xl mx-auto"
         >
-          Master Moody Bot with our comprehensive list of commands.
+          Master Moody Bot with our comprehensive list of commands. Get help in our <a href="https://discord.com/servers/wyno-is-live-1129884940385914880" className="text-pink-400 hover:text-pink-300 font-bold underline">support server</a>.
         </motion.p>
       </div>
 
       <div className="max-w-2xl mx-auto mb-12 relative">
         <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
-          <Search className="h-5 w-5 text-muted-foreground" />
+          <Search className="h-5 w-5 text-gray-400" />
         </div>
         <Input 
           placeholder="Search commands..." 
-          className="pl-10 h-12 bg-white/5 border-white/10 text-lg focus:ring-primary/50 transition-all rounded-full"
+          className="pl-10 h-12 bg-white/5 border border-pink-500/30 text-white text-lg focus:border-pink-500 focus:ring-pink-500/50 transition-all rounded-xl focus:bg-white/10"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
@@ -126,27 +126,28 @@ export default function Commands() {
           <motion.div
             key={cmd.name}
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             transition={{ delay: index * 0.1 }}
           >
-            <Card className="h-full bg-card/40 backdrop-blur-sm border-white/5 hover:border-primary/50 transition-all duration-300 group">
+            <Card className="h-full bg-gradient-to-br from-purple-900/20 via-pink-900/10 to-cyan-900/20 backdrop-blur-sm border border-pink-500/20 hover:border-pink-500/50 transition-all duration-300 group hover-glow">
               <CardHeader>
                 <div className="flex items-center justify-between mb-2">
-                  <Badge variant="outline" className="bg-primary/10 text-primary border-primary/20">
+                  <Badge variant="outline" className="bg-gradient-to-r from-pink-500/20 to-orange-500/20 text-pink-300 border-pink-500/30 font-bold">
                     {cmd.category}
                   </Badge>
-                  <cmd.icon className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                  <cmd.icon className="w-5 h-5 text-gray-400 group-hover:text-pink-400 transition-colors" />
                 </div>
-                <CardTitle className="font-mono text-xl text-white group-hover:text-primary transition-colors">
+                <CardTitle className="font-mono text-xl text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-pink-400 group-hover:to-cyan-400 transition-all">
                   /{cmd.name}
                 </CardTitle>
-                <CardDescription>
+                <CardDescription className="text-gray-400">
                   {cmd.description}
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="bg-black/40 rounded-lg p-3 font-mono text-sm text-muted-foreground border border-white/5 group-hover:border-white/10 transition-colors">
-                  <span className="text-primary">$</span> {cmd.usage}
+                <div className="bg-black/40 rounded-lg p-3 font-mono text-sm text-gray-400 border border-pink-500/20 group-hover:border-pink-500/40 transition-colors">
+                  <span className="text-pink-400">$</span> {cmd.usage}
                 </div>
                 
                 {cmd.args.length > 0 && (
@@ -154,10 +155,10 @@ export default function Commands() {
                     <p className="text-xs font-medium text-white uppercase tracking-wider">Arguments</p>
                     {cmd.args.map(arg => (
                       <div key={arg.name} className="flex items-start gap-2 text-sm">
-                        <Badge variant="secondary" className="font-mono text-xs">
+                        <Badge variant="secondary" className="font-mono text-xs bg-pink-500/20 text-pink-300 border-pink-500/30">
                           {arg.name}
                         </Badge>
-                        <span className="text-muted-foreground text-xs leading-5">
+                        <span className="text-gray-400 text-xs leading-5">
                           {arg.description}
                           {arg.required && <span className="text-red-400 ml-1">*</span>}
                         </span>

@@ -1,136 +1,125 @@
-import { Layout } from "@/components/layout";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
-import { Zap, Music, Shield, Sliders, Headphones, Radio, Activity, Volume2 } from "lucide-react";
+import { Music, Zap, Shield, Headphones, Radio, Waveform, Sparkles, Sliders } from "lucide-react";
+import { Button } from "@/components/ui/button";
+
+const features = [
+  {
+    icon: <Music className="w-12 h-12" />,
+    title: "High-Quality Audio",
+    description: "Crystal clear 320kbps streaming with advanced audio processing for the best listening experience.",
+    color: "from-pink-500 to-orange-500"
+  },
+  {
+    icon: <Zap className="w-12 h-12" />,
+    title: "Lightning Fast",
+    description: "Zero lag playback with optimized infrastructure and global CDN distribution.",
+    color: "from-orange-500 to-yellow-500"
+  },
+  {
+    icon: <Waveform className="w-12 h-12" />,
+    title: "Advanced Filtering",
+    description: "Bass boost, nightcore, vaporwave, and more audio effects at your fingertips.",
+    color: "from-cyan-500 to-blue-500"
+  },
+  {
+    icon: <Headphones className="w-12 h-12" />,
+    title: "Complete Control",
+    description: "Full control over volume, queue, and playback from our intuitive dashboard.",
+    color: "from-purple-500 to-pink-500"
+  },
+  {
+    icon: <Radio className="w-12 h-12" />,
+    title: "Queue Management",
+    description: "Intelligent queue system with pagination, shuffling, and repeat modes.",
+    color: "from-blue-500 to-cyan-500"
+  },
+  {
+    icon: <Shield className="w-12 h-12" />,
+    title: "Permission System",
+    description: "Granular control with DJ roles, admin-only commands, and user permissions.",
+    color: "from-pink-500 to-rose-500"
+  },
+  {
+    icon: <Sliders className="w-12 h-12" />,
+    title: "Customizable",
+    description: "Customize prefixes, volumes, roles, and more per server.",
+    color: "from-yellow-500 to-orange-500"
+  },
+  {
+    icon: <Sparkles className="w-12 h-12" />,
+    title: "Premium Effects",
+    description: "Special audio effects and visual enhancements for premium members.",
+    color: "from-pink-400 to-cyan-400"
+  }
+];
 
 export default function Features() {
-  const features = [
-    {
-      icon: Music,
-      title: "High Fidelity Audio",
-      description: "Experience music as it was meant to be heard. Moody Bot delivers crystal clear, lossless audio streaming directly to your voice channels.",
-      color: "text-cyan-400"
-    },
-    {
-      icon: Volume2,
-      title: "200% Volume Boost",
-      description: "Need it louder? Crank the volume up to 200% for those hype moments or lower it for background vibes. Complete control in your hands.",
-      color: "text-green-400"
-    },
-    {
-      icon: Radio,
-      title: "Smart Queue System",
-      description: "Advanced queue management with pagination. View upcoming tracks, total duration, and manage the playlist with ease.",
-      color: "text-purple-400"
-    },
-    {
-      icon: Activity,
-      title: "Zero Lag Architecture",
-      description: "Built on high-performance infrastructure to ensure skip-free playback even during peak hours. 99.9% uptime guaranteed.",
-      color: "text-red-400"
-    },
-    {
-      icon: Sliders,
-      title: "Advanced Filters",
-      description: "Customize your listening experience with real-time audio effects like Bass Boost, Nightcore, and Vaporwave directly from the dashboard.",
-      color: "text-yellow-400"
-    },
-    {
-      icon: Shield,
-      title: "Secure Dashboard",
-      description: "Web-based control panel restricted to server administrators. Manage prefixes, playback, and permissions securely.",
-      color: "text-blue-400"
-    }
-  ];
-
   return (
-    <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="relative py-20 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-background to-background" />
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="text-center max-w-3xl mx-auto space-y-6">
+    <div className="py-20">
+      <div className="container mx-auto px-4">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-center mb-16"
+        >
+          <h1 className="text-5xl md:text-6xl font-display font-black mb-4">
+            <span className="bg-gradient-to-r from-pink-400 via-orange-400 to-cyan-400 bg-clip-text text-transparent">
+              Powerful Features
+            </span>
+          </h1>
+          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+            Everything you need to manage music in your Discord server
+          </p>
+        </motion.div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+          {features.map((feature, i) => (
             <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium"
-            >
-              <Zap className="w-4 h-4" />
-              Next Generation Music Bot
-            </motion.div>
-            
-            <motion.h1 
+              key={i}
               initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              className="text-4xl md:text-7xl font-display font-bold text-white"
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1 }}
+              className="group"
             >
-              Features that <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-cyan-400">Empower</span>
-            </motion.h1>
-            
-            <motion.p 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="text-lg text-muted-foreground"
-            >
-              Moody Bot isn't just another music bot. It's a complete audio experience designed for power users and casual listeners alike.
-            </motion.p>
-          </div>
-        </div>
-      </section>
-
-      {/* Feature Grid */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {features.map((feature, index) => (
-              <motion.div
-                key={feature.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-              >
-                <Card className="h-full bg-card/40 backdrop-blur-sm border-white/5 hover:border-primary/30 hover:bg-white/5 transition-all duration-300 group">
-                  <CardHeader>
-                    <div className={`w-12 h-12 rounded-lg bg-white/5 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 ${feature.color}`}>
-                      <feature.icon className="w-6 h-6" />
-                    </div>
-                    <CardTitle className="text-xl text-white group-hover:text-primary transition-colors">
-                      {feature.title}
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-muted-foreground leading-relaxed">
-                      {feature.description}
-                    </p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Tech Stack / Under the Hood */}
-      <section className="py-20 border-t border-white/5 bg-black/20">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-display font-bold text-white mb-4">Powered by Modern Tech</h2>
-            <p className="text-muted-foreground">Built with the latest technologies for maximum performance.</p>
-          </div>
-          
-          <div className="flex flex-wrap justify-center gap-8 opacity-70 grayscale hover:grayscale-0 transition-all duration-500">
-            {["Node.js", "Discord.js", "FFmpeg", "TypeScript", "React", "Tailwind"].map((tech) => (
-              <div key={tech} className="px-6 py-3 rounded-full bg-white/5 border border-white/10 text-white font-mono text-sm font-bold">
-                {tech}
+              <div className="relative overflow-hidden rounded-2xl p-8 h-full glass-card hover-glow">
+                <div className={`absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-300 bg-gradient-to-r ${feature.color}`} />
+                
+                <div className={`mb-6 p-4 rounded-xl w-fit bg-gradient-to-r ${feature.color} text-white group-hover:scale-110 transition-transform duration-300`}>
+                  {feature.icon}
+                </div>
+                
+                <h3 className="text-2xl font-bold mb-3 text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-pink-400 group-hover:to-cyan-400 transition-all">
+                  {feature.title}
+                </h3>
+                
+                <p className="text-gray-400 leading-relaxed group-hover:text-gray-300">
+                  {feature.description}
+                </p>
               </div>
-            ))}
-          </div>
+            </motion.div>
+          ))}
         </div>
-      </section>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center"
+        >
+          <h2 className="text-3xl font-display font-black mb-4 text-white">
+            Ready to upgrade your <span className="bg-gradient-to-r from-pink-400 to-cyan-400 bg-clip-text text-transparent">server?</span>
+          </h2>
+          <p className="text-gray-400 mb-8 max-w-2xl mx-auto">
+            Join thousands of servers enjoying premium music experience with Moody Bot.
+          </p>
+          <a href="https://discord.com/oauth2/authorize?client_id=1344874349580255293&permissions=321609335434304&integration_type=0&scope=bot">
+            <Button className="font-bold bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white rounded-xl hover:scale-105 transition-all shadow-lg shadow-pink-500/40">
+              Add to Your Server →
+            </Button>
+          </a>
+        </motion.div>
+      </div>
     </div>
   );
 }
