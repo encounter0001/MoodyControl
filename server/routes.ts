@@ -28,17 +28,26 @@ export async function registerRoutes(
   
   // === Authentication Routes ===
   
+  // Helper function to get correct redirect URI
+  function getRedirectUri(): string {
+    // Use explicitly set redirect URI for production
+    if (process.env.DISCORD_REDIRECT_URI) {
+      return process.env.DISCORD_REDIRECT_URI;
+    }
+    
+    // For development, use Replit dev domain
+    if (process.env.REPLIT_DEV_DOMAIN) {
+      return `https://${process.env.REPLIT_DEV_DOMAIN}/api/auth/discord/callback`;
+    }
+    
+    // Fallback for local development
+    return "http://localhost:5000/api/auth/discord/callback";
+  }
+
   // Start Discord OAuth flow
   app.get("/api/auth/discord", (req, res) => {
     const clientId = process.env.DISCORD_CLIENT_ID;
-    
-    // Construct redirect URI - handle proxies and different environments
-    let redirectUri = process.env.DISCORD_REDIRECT_URI;
-    if (!redirectUri) {
-      const protocol = req.get("x-forwarded-proto") || req.protocol || "https";
-      const host = req.get("x-forwarded-host") || req.get("host") || "localhost:5000";
-      redirectUri = `${protocol}://${host}/api/auth/discord/callback`;
-    }
+    const redirectUri = getRedirectUri();
     
     const scopes = ["identify", "email", "guilds"];
     const params = new URLSearchParams({
@@ -46,10 +55,9 @@ export async function registerRoutes(
       redirect_uri: redirectUri,
       response_type: "code",
       scope: scopes.join(" "),
-      prompt: "none",
     });
 
-    console.log("[Discord Auth] Redirecting to Discord OAuth", { clientId, redirectUri });
+    console.log("[Discord Auth] Starting OAuth flow", { clientId, redirectUri, scope: "identify email guilds" });
     res.redirect(`${DISCORD_OAUTH_URL}?${params.toString()}`);
   });
 
@@ -58,6 +66,7 @@ export async function registerRoutes(
     const { code, error } = req.query;
 
     if (error) {
+      console.error("[Discord Auth] OAuth error:", error);
       return res.redirect(`/?error=${error}`);
     }
 
@@ -68,14 +77,7 @@ export async function registerRoutes(
     try {
       const clientId = process.env.DISCORD_CLIENT_ID;
       const clientSecret = process.env.DISCORD_CLIENT_SECRET;
-      
-      // Construct redirect URI - must match the one used in /api/auth/discord
-      let redirectUri = process.env.DISCORD_REDIRECT_URI;
-      if (!redirectUri) {
-        const protocol = req.get("x-forwarded-proto") || req.protocol || "https";
-        const host = req.get("x-forwarded-host") || req.get("host") || "localhost:5000";
-        redirectUri = `${protocol}://${host}/api/auth/discord/callback`;
-      }
+      const redirectUri = getRedirectUri();
 
       // Exchange code for access token
       const tokenResponse = await fetch(`${DISCORD_API_BASE}/oauth2/token`, {
