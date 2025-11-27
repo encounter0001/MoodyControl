@@ -24,8 +24,8 @@ export const useAuth = create<AuthState>((set) => ({
 
   login: async () => {
     try {
-      const response = await authApi.login();
-      set({ user: response.user, isAuthenticated: true });
+      // Redirect to Discord OAuth
+      window.location.href = "/api/auth/discord";
     } catch (error) {
       console.error("Login failed:", error);
       throw error;

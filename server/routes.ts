@@ -172,6 +172,10 @@ export async function registerRoutes(
         return res.status(401).json({ error: "User not found" });
       }
 
+      if (!user.accessToken) {
+        return res.status(401).json({ error: "No access token" });
+      }
+
       // Fetch guilds from Discord API
       const adminGuilds = await getAdminGuilds(user.accessToken);
 
@@ -203,6 +207,10 @@ export async function registerRoutes(
       const user = await storage.getUser(req.session.userId!);
       if (!user) {
         return res.status(401).json({ error: "User not found" });
+      }
+
+      if (!user.accessToken) {
+        return res.status(401).json({ error: "No access token" });
       }
 
       // Verify user has access to this guild
