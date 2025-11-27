@@ -2,11 +2,15 @@
 
 ## Overview
 
-Moody Music Bot is a full-stack web application that provides a dashboard interface for managing a Discord music bot. The application allows Discord server administrators to configure bot settings, manage music playback, and control audio filters through a modern web interface. The system consists of a React-based frontend with a cyberpunk/futuristic design theme and an Express backend that integrates with Discord's OAuth system and manages guild-specific settings.
+Moody Music Bot is a full-stack web application providing a premium dashboard for managing a Discord music bot. The application allows Discord server administrators to configure bot settings, manage music playback, and control audio filters through a vibrant, modern web interface. The system consists of a React-based frontend with a bold "Vibrant Rich Theme" design and an Express backend that handles session management and guild settings.
+
+**Current Live**: https://moodymusicbot.pages.dev/
+**Discord OAuth Bot**: https://discord.com/oauth2/authorize?client_id=1344874349580255293&permissions=321609335434304&integration_type=0&scope=bot
+**Support Server**: https://discord.com/servers/wyno-is-live-1129884940385914880
 
 ## User Preferences
 
-Preferred communication style: Simple, everyday language.
+Preferred communication style: Simple, everyday language. Wants crazy, unique, and rich enhanced themes with all working features.
 
 ## System Architecture
 
@@ -14,18 +18,18 @@ Preferred communication style: Simple, everyday language.
 
 **Technology Stack**: React 18 with TypeScript, Vite for bundling, and Wouter for client-side routing.
 
-**UI Framework**: Shadcn/ui components built on Radix UI primitives with Tailwind CSS for styling. The design implements a dark cyberpunk theme with custom color schemes defined in CSS variables.
+**UI Framework**: Shadcn/ui components built on Radix UI primitives with Tailwind CSS for styling. The design implements a vibrant "Vibrant Rich Theme" with gradient accents (pink, orange, cyan) and enhanced glassmorphism effects.
 
-**State Management**: Zustand for client-side state management, with separate stores for authentication and mock guild data. TanStack Query (React Query) handles server state and API caching.
+**State Management**: Zustand for client-side authentication state. TanStack Query (React Query) handles server state and API caching.
 
 **Routing Structure**: 
-- `/` - Landing page with hero section
-- `/features` - Feature showcase
-- `/commands` - Bot command documentation
+- `/` - Landing page with hero section and feature showcase
+- `/features` - Feature showcase with detailed descriptions
+- `/commands` - Command documentation with search functionality
 - `/dashboard` - Guild selection for authenticated users
 - `/dashboard/:id` - Individual guild settings page
 
-**Design System**: Custom design tokens using CSS variables for colors, with a "new-york" style variant from Shadcn. The theme uses Orbitron for display text and Inter for body text, creating a futuristic aesthetic.
+**Design System**: Bold vibrant theme using CSS variables for dynamic colors with gradients (pink → orange → cyan). Uses Space Grotesk for display text and Inter for body text with animated borders and hover effects.
 
 ### Backend Architecture
 
@@ -33,96 +37,89 @@ Preferred communication style: Simple, everyday language.
 
 **Session Management**: PostgreSQL-backed sessions using `connect-pg-simple`. Sessions store `userId` and `accessToken` for authenticated users.
 
-**Authentication Flow**: Discord OAuth integration (currently mocked for development). The system authenticates users via Discord, stores their access tokens, and validates admin permissions for guild access.
+**Authentication Flow**: Discord OAuth integration (currently mocked for development). Session-based authentication with mock user data.
 
 **API Structure**:
 - `/api/auth/*` - Authentication endpoints (login, logout, current user)
-- `/api/guilds` - Fetch user's guilds with admin permissions
-- `/api/guilds/:id` - Get/update specific guild settings
+- `/api/guilds` - Fetch user's guilds (mocked for dev)
+- `/api/guilds/:id/settings` - Get/update specific guild settings
 
-**Middleware**: Session middleware with PostgreSQL store, JSON body parsing with raw body preservation for webhooks, and authentication guards for protected routes.
+**Middleware**: Session middleware with PostgreSQL store, JSON body parsing, and authentication guards.
 
 ### Data Storage
 
-**Database**: PostgreSQL accessed via Neon serverless driver for edge compatibility.
+**Database**: PostgreSQL accessed via Neon serverless driver.
 
-**ORM**: Drizzle ORM with schema-first design. Migrations stored in `/migrations` directory.
+**ORM**: Drizzle ORM with schema-first design.
 
 **Schema Design**:
-- `users` table: Stores Discord user data including OAuth tokens with expiry tracking
-- `guildSettings` table: Per-guild configuration including prefix, volume, DJ role, and audio filter settings (bass boost, nightcore, vaporwave)
-- Session table: Auto-created by `connect-pg-simple` for session storage
+- `users` table: Discord user data (id, username, discriminator, avatar, tokens)
+- `guildSettings` table: Per-guild configuration (prefix, volume, filters: bassBoost, nightcore, vaporwave)
+- Session table: Auto-created by `connect-pg-simple`
 
-**Data Access Pattern**: Repository pattern implemented through `DatabaseStorage` class in `server/storage.ts`, providing abstraction over database operations.
+**Data Access Pattern**: Repository pattern via `DatabaseStorage` class in `server/storage.ts`.
 
 ### Build & Deployment
 
-**Development**: Vite dev server on port 5000 for frontend, tsx-node for backend with hot reload.
+**Development**: Vite dev server on port 5000, tsx-node for backend with hot reload.
 
-**Production Build**: Two-stage build process:
-1. Vite builds React frontend to `dist/public`
-2. esbuild bundles server code to `dist/index.cjs` with selective dependency bundling (allowlist for commonly used packages to reduce cold start times)
+**Production Build**: Two-stage (Vite for frontend, esbuild for server code).
 
-**Static File Serving**: Production mode serves built frontend from Express, with fallback to `index.html` for client-side routing.
+**Static File Serving**: Production serves built frontend from Express with fallback to `index.html`.
 
 ## External Dependencies
 
 ### Discord Integration
 
-**Discord.js v14**: Not directly used in the web application but included for potential bot integration. The bot source code is located in `attached_assets/bot_source/discord-music-bot/`.
+**Discord OAuth**: Uses Discord's OAuth2 flow. Bot invite link: `https://discord.com/oauth2/authorize?client_id=1344874349580255293&permissions=321609335434304&integration_type=0&scope=bot`
 
-**Discord OAuth**: Uses Discord's OAuth2 flow for user authentication. The system fetches user profiles and guild memberships via Discord API v10.
-
-**Permission System**: Checks for administrator permissions (0x8 bit flag) to determine if users can manage guild settings.
-
-**API Endpoints Used**:
-- `GET /users/@me` - Fetch authenticated user data
-- `GET /users/@me/guilds` - Fetch user's guild list
-- Discord CDN for avatars and guild icons
-
-### Database
-
-**Neon Serverless PostgreSQL**: Serverless PostgreSQL provider using `@neondatabase/serverless` driver for edge-compatible database access.
-
-**Connection**: Single connection string via `DATABASE_URL` environment variable.
+**Support Server**: https://discord.com/servers/wyno-is-live-1129884940385914880
 
 ### UI Component Libraries
 
-**Radix UI**: Headless component primitives for accessibility and interaction patterns (dialogs, dropdowns, popovers, etc.).
+**Radix UI**: Headless components for accessibility.
+**Tailwind CSS**: Utility-first CSS framework with custom theme.
+**Framer Motion**: Animation library for transitions.
+**Lucide React**: Icon library (Wind, Music, Zap, Shield, etc.).
 
-**Tailwind CSS**: Utility-first CSS framework with custom configuration for the design system.
+### Database
 
-**Framer Motion**: Animation library for page transitions and interactive elements.
-
-**Lucide React**: Icon library for consistent iconography throughout the application.
-
-### Development Tools
-
-**Replit Integration**: Custom Vite plugins for Replit-specific features:
-- Runtime error overlay
-- Cartographer (development navigation)
-- Dev banner
-- Meta image updater for OpenGraph tags
-
-**TypeScript**: Strict mode enabled with path aliases for clean imports (`@/`, `@shared/`, `@assets/`).
+**Neon PostgreSQL**: Serverless PostgreSQL via `@neondatabase/serverless`.
 
 ### Session & Security
 
-**express-session**: Session management middleware.
+**express-session**: Session management.
+**connect-pg-simple**: PostgreSQL session adapter.
+**Environment Variables**: DATABASE_URL, SESSION_SECRET.
 
-**connect-pg-simple**: PostgreSQL session store adapter.
+## Features Implemented
 
-**Environment Variables**:
-- `DATABASE_URL` - PostgreSQL connection string (required)
-- `SESSION_SECRET` - Session encryption key (defaults to development value)
-- `DISCORD_CLIENT_ID` & `DISCORD_CLIENT_SECRET` - For OAuth (not yet implemented in production)
+✅ **Dashboard Features**:
+- Guild selection with admin-only filtering
+- Real-time guild settings management
+- Prefix customization (1-5 characters)
+- Volume control (0-200%)
+- Audio filters: Bass Boost, Nightcore, Vaporwave toggle
+- Beautiful gradient UI with hover effects
 
-### Music Bot Integration
+✅ **Pages**:
+- Home: Hero section with stats and feature grid
+- Features: Detailed feature showcase
+- Commands: Searchable command documentation
+- Dashboard: Guild management
+- Guild Settings: Per-guild configuration
 
-The application includes source code for a separate Discord music bot (`attached_assets/bot_source/discord-music-bot/`) that would connect to the same database to read guild settings. The bot uses:
-- `@discordjs/voice` for audio playback
-- `ytdl-core` for YouTube audio streaming
-- `ffmpeg-static` for audio processing
-- High-quality audio settings (384kbps, 48kHz sample rate)
+✅ **Design**:
+- Vibrant gradient theme (pink, orange, cyan)
+- Glassmorphism effects
+- Animated borders and hover glows
+- Responsive design (mobile, tablet, desktop)
+- Dark background with accent lighting
 
-The bot is designed to read settings from the `guildSettings` table that are configured through the web dashboard.
+## Pending / Future Features
+
+- Real Discord OAuth integration (currently mocked)
+- Queue management visualization
+- Real-time bot status
+- Premium features and subscription system
+- Bot statistics dashboard

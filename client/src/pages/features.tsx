@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Music, Zap, Shield, Headphones, Radio, Waveform, Sparkles, Sliders } from "lucide-react";
+import { Music, Zap, Shield, Headphones, Radio, Wind, Sparkles, Sliders } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const features = [
@@ -16,7 +16,7 @@ const features = [
     color: "from-orange-500 to-yellow-500"
   },
   {
-    icon: <Waveform className="w-12 h-12" />,
+    icon: <Wind className="w-12 h-12" />,
     title: "Advanced Filtering",
     description: "Bass boost, nightcore, vaporwave, and more audio effects at your fingertips.",
     color: "from-cyan-500 to-blue-500"

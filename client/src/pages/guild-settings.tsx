@@ -8,10 +8,10 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
-import { ArrowLeft, Disc, Play, Pause, SkipForward, Volume2, Save, Hash, Music, ListMusic, ShieldCheck, Activity, Mic2, Loader } from "lucide-react";
+import { ArrowLeft, Save, Hash, Loader } from "lucide-react";
 import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 interface GuildSettings {
   id: string;
@@ -107,8 +107,8 @@ export default function GuildSettingsPage() {
     return (
       <div className="container mx-auto px-4 py-12 flex items-center justify-center min-h-[60vh]">
         <div className="flex flex-col items-center gap-4">
-          <Loader className="w-12 h-12 text-primary animate-spin" />
-          <p className="text-muted-foreground">Loading guild settings...</p>
+          <Loader className="w-12 h-12 text-pink-500 animate-spin" />
+          <p className="text-gray-400">Loading guild settings...</p>
         </div>
       </div>
     );
@@ -121,7 +121,7 @@ export default function GuildSettingsPage() {
       <Button 
         variant="ghost" 
         onClick={() => setLocation("/dashboard")}
-        className="mb-6 pl-0 text-muted-foreground hover:text-white group"
+        className="mb-6 pl-0 text-gray-400 hover:text-pink-400 group transition-colors"
       >
         <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
         Back to Servers
@@ -129,46 +129,58 @@ export default function GuildSettingsPage() {
 
       <div className="flex flex-col lg:flex-row gap-8">
         <div className="flex-1 min-w-0">
-          <div className="flex items-center justify-between mb-6">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="flex items-center justify-between mb-8"
+          >
             <div>
-              <h1 className="text-3xl font-display font-bold text-white mb-2">{settings.guildName}</h1>
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <span className="flex items-center gap-1"><ShieldCheck className="w-3 h-3" /> Administrator</span>
+              <h1 className="text-4xl font-display font-black text-white mb-2">
+                <span className="bg-gradient-to-r from-pink-400 to-cyan-400 bg-clip-text text-transparent">
+                  {settings.guildName}
+                </span>
+              </h1>
+              <div className="flex items-center gap-2 text-sm text-gray-400">
+                <span>⚙️ Server Settings</span>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           <Tabs defaultValue="settings" className="space-y-6">
-            <TabsList className="bg-white/5 border border-white/5 p-1">
+            <TabsList className="bg-white/5 border border-pink-500/20 p-1 rounded-xl">
               <TabsTrigger value="overview">Overview</TabsTrigger>
               <TabsTrigger value="settings">Settings</TabsTrigger>
             </TabsList>
 
-            <AnimatePresence mode="wait">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+            >
               <TabsContent value="overview" className="space-y-6">
-                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                  <Card className="bg-card/40 backdrop-blur-sm border-white/5">
+                <div className="grid gap-4 md:grid-cols-3">
+                  <Card className="bg-gradient-to-br from-pink-500/10 to-orange-500/5 border border-pink-500/20">
                     <CardHeader className="pb-2">
-                      <CardTitle className="text-sm font-medium text-muted-foreground">Current Prefix</CardTitle>
+                      <CardTitle className="text-sm font-medium text-gray-400">Current Prefix</CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <div className="text-2xl font-bold text-white font-mono">{settings.prefix}</div>
+                      <div className="text-3xl font-bold text-pink-400 font-mono">{settings.prefix}</div>
                     </CardContent>
                   </Card>
-                  <Card className="bg-card/40 backdrop-blur-sm border-white/5">
+                  <Card className="bg-gradient-to-br from-cyan-500/10 to-blue-500/5 border border-cyan-500/20">
                     <CardHeader className="pb-2">
-                      <CardTitle className="text-sm font-medium text-muted-foreground">Current Volume</CardTitle>
+                      <CardTitle className="text-sm font-medium text-gray-400">Current Volume</CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <div className="text-2xl font-bold text-white">{settings.volume}%</div>
+                      <div className="text-3xl font-bold text-cyan-400">{settings.volume}%</div>
                     </CardContent>
                   </Card>
-                  <Card className="bg-card/40 backdrop-blur-sm border-white/5">
+                  <Card className="bg-gradient-to-br from-purple-500/10 to-pink-500/5 border border-purple-500/20">
                     <CardHeader className="pb-2">
-                      <CardTitle className="text-sm font-medium text-muted-foreground">Active Filters</CardTitle>
+                      <CardTitle className="text-sm font-medium text-gray-400">Active Filters</CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <div className="text-2xl font-bold text-white">
+                      <div className="text-3xl font-bold text-purple-400">
                         {Object.values({ bassBoost: settings.bassBoost, nightcore: settings.nightcore, vaporwave: settings.vaporwave }).filter(Boolean).length}
                       </div>
                     </CardContent>
@@ -177,29 +189,29 @@ export default function GuildSettingsPage() {
               </TabsContent>
 
               <TabsContent value="settings" className="space-y-6">
-                <Card className="bg-card/40 backdrop-blur-sm border-white/5">
+                <Card className="bg-gradient-to-br from-purple-900/20 via-pink-900/10 to-cyan-900/20 backdrop-blur-sm border border-pink-500/20">
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <Hash className="w-5 h-5 text-primary" />
+                    <CardTitle className="flex items-center gap-2 text-white">
+                      <Hash className="w-5 h-5 text-pink-400" />
                       General Configuration
                     </CardTitle>
-                    <CardDescription>Manage basic bot configuration.</CardDescription>
+                    <CardDescription className="text-gray-400">Manage basic bot configuration.</CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-6">
                     <div className="grid w-full max-w-sm items-center gap-1.5">
-                      <Label htmlFor="prefix" className="text-white">Command Prefix</Label>
+                      <Label htmlFor="prefix" className="text-white font-bold">Command Prefix</Label>
                       <div className="flex gap-2">
                         <Input 
                           type="text" 
                           id="prefix" 
                           value={prefixInput}
                           onChange={(e) => setPrefixInput(e.target.value)}
-                          className="bg-black/20 border-white/10 text-white"
+                          className="bg-white/5 border border-pink-500/30 text-white focus:border-pink-500 focus:ring-pink-500/50"
                           disabled={saving}
                         />
                         <Button 
                           onClick={handleSavePrefix} 
-                          className="bg-primary hover:bg-primary/90"
+                          className="bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white font-bold"
                           disabled={saving}
                         >
                           {saving ? <Loader className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4 mr-2" />}
@@ -208,11 +220,11 @@ export default function GuildSettingsPage() {
                       </div>
                     </div>
 
-                    <div className="space-y-4 border-t border-white/5 pt-4">
-                      <h3 className="font-medium text-white text-sm uppercase tracking-wider">Audio Effects</h3>
+                    <div className="space-y-4 border-t border-white/5 pt-6">
+                      <h3 className="font-bold text-white text-sm uppercase tracking-wider">🎵 Audio Effects</h3>
                       
-                      <div className="flex items-center justify-between">
-                        <Label htmlFor="bass" className="text-white">Bass Boost</Label>
+                      <div className="flex items-center justify-between p-4 bg-white/5 rounded-lg hover:bg-white/10 transition-colors">
+                        <Label htmlFor="bass" className="text-white font-semibold">Bass Boost</Label>
                         <Switch 
                           id="bass" 
                           checked={settings.bassBoost}
@@ -220,8 +232,8 @@ export default function GuildSettingsPage() {
                         />
                       </div>
                       
-                      <div className="flex items-center justify-between">
-                        <Label htmlFor="night" className="text-white">Nightcore</Label>
+                      <div className="flex items-center justify-between p-4 bg-white/5 rounded-lg hover:bg-white/10 transition-colors">
+                        <Label htmlFor="night" className="text-white font-semibold">Nightcore</Label>
                         <Switch 
                           id="night" 
                           checked={settings.nightcore}
@@ -229,8 +241,8 @@ export default function GuildSettingsPage() {
                         />
                       </div>
                       
-                      <div className="flex items-center justify-between">
-                        <Label htmlFor="vapor" className="text-white">Vaporwave</Label>
+                      <div className="flex items-center justify-between p-4 bg-white/5 rounded-lg hover:bg-white/10 transition-colors">
+                        <Label htmlFor="vapor" className="text-white font-semibold">Vaporwave</Label>
                         <Switch 
                           id="vapor" 
                           checked={settings.vaporwave}
@@ -239,10 +251,9 @@ export default function GuildSettingsPage() {
                       </div>
                     </div>
 
-                    <div className="space-y-2 border-t border-white/5 pt-4">
-                      <Label className="text-white flex items-center gap-2">
-                        <Volume2 className="w-4 h-4 text-muted-foreground" />
-                        Volume Control
+                    <div className="space-y-4 border-t border-white/5 pt-6">
+                      <Label className="text-white font-bold flex items-center gap-2">
+                        🔊 Volume Control
                       </Label>
                       <div className="flex items-center gap-4">
                         <Slider 
@@ -252,13 +263,13 @@ export default function GuildSettingsPage() {
                           className="flex-1 cursor-pointer"
                           onValueCommit={handleVolumeChange}
                         />
-                        <span className="text-sm font-mono w-12 text-right text-muted-foreground">{settings.volume}%</span>
+                        <span className="text-sm font-mono font-bold w-12 text-right text-pink-400">{settings.volume}%</span>
                       </div>
                     </div>
                   </CardContent>
                 </Card>
               </TabsContent>
-            </AnimatePresence>
+            </motion.div>
           </Tabs>
         </div>
       </div>
