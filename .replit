@@ -50,4 +50,3 @@ integrations = ["discord:1.0.0"]
 DISCORD_REDIRECT_URI = "https://moodymusicbot.pages.dev/api/auth/discord/callback"
 
 [userenv.development]
-DISCORD_REDIRECT_URI = "http://localhost:5000/api/auth/discord/callback"

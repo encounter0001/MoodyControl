@@ -30,14 +30,14 @@ export async function registerRoutes(
   
   // Helper function to get correct redirect URI
   function getRedirectUri(): string {
+    // For development, use Replit dev domain (this is the actual accessible domain)
+    if (process.env.REPLIT_DEV_DOMAIN) {
+      return `https://${process.env.REPLIT_DEV_DOMAIN}/api/auth/discord/callback`;
+    }
+    
     // Use explicitly set redirect URI for production
     if (process.env.DISCORD_REDIRECT_URI) {
       return process.env.DISCORD_REDIRECT_URI;
-    }
-    
-    // For development, use Replit dev domain
-    if (process.env.REPLIT_DEV_DOMAIN) {
-      return `https://${process.env.REPLIT_DEV_DOMAIN}/api/auth/discord/callback`;
     }
     
     // Fallback for local development
