@@ -10,6 +10,9 @@ import {
 import { updateGuildSettingsSchema } from "@shared/schema";
 import { z } from "zod";
 
+const DISCORD_API_BASE = "https://discord.com/api/v10";
+const DISCORD_OAUTH_URL = "https://discord.com/oauth2/authorize";
+
 // Middleware to check if user is authenticated
 function requireAuth(req: Request, res: Response, next: Function) {
   if (!req.session.userId || !req.session.accessToken) {
@@ -25,54 +28,107 @@ export async function registerRoutes(
   
   // === Authentication Routes ===
   
-  // Login with Discord - Redirect to Discord OAuth
+  // Start Discord OAuth flow
   app.get("/api/auth/discord", (req, res) => {
-    // Use Replit's Discord connector - users authenticate via Replit UI
-    // For now, we'll use a mock login for development
-    res.json({ 
-      message: "Please use the Discord integration setup in Replit" 
+    const clientId = process.env.DISCORD_CLIENT_ID;
+    const redirectUri = process.env.DISCORD_REDIRECT_URI || 
+      `${req.protocol}://${req.get("host")}/api/auth/discord/callback`;
+    
+    const scopes = ["identify", "email", "guilds"];
+    const params = new URLSearchParams({
+      client_id: clientId!,
+      redirect_uri: redirectUri,
+      response_type: "code",
+      scope: scopes.join(" "),
+      prompt: "none",
     });
+
+    res.redirect(`${DISCORD_OAUTH_URL}?${params.toString()}`);
   });
 
-  // Mock login endpoint for development (simulates Discord OAuth)
-  app.post("/api/auth/login", async (req, res) => {
+  // Discord OAuth callback
+  app.get("/api/auth/discord/callback", async (req, res) => {
+    const { code, error } = req.query;
+
+    if (error) {
+      return res.redirect(`/?error=${error}`);
+    }
+
+    if (!code) {
+      return res.status(400).json({ error: "Missing authorization code" });
+    }
+
     try {
-      // In production, this would handle the OAuth callback
-      // For now, create a mock user session
-      const mockUser = {
-        id: "1112239801400303676",
-        username: "WYNO LIVE",
-        discriminator: "0001",
-        avatar: null,
-        email: "user@example.com",
-        accessToken: "mock_token",
-        refreshToken: "mock_refresh",
-        tokenExpiry: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days
-      };
+      const clientId = process.env.DISCORD_CLIENT_ID;
+      const clientSecret = process.env.DISCORD_CLIENT_SECRET;
+      const redirectUri = process.env.DISCORD_REDIRECT_URI || 
+        `${req.protocol}://${req.get("host")}/api/auth/discord/callback`;
+
+      // Exchange code for access token
+      const tokenResponse = await fetch(`${DISCORD_API_BASE}/oauth2/token`, {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams({
+          client_id: clientId!,
+          client_secret: clientSecret!,
+          grant_type: "authorization_code",
+          code: code as string,
+          redirect_uri: redirectUri,
+        }).toString(),
+      });
+
+      if (!tokenResponse.ok) {
+        throw new Error("Failed to exchange code for token");
+      }
+
+      const tokenData = await tokenResponse.json();
+      const accessToken = tokenData.access_token;
+
+      // Fetch user info
+      const userResponse = await fetch(`${DISCORD_API_BASE}/users/@me`, {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      });
+
+      if (!userResponse.ok) {
+        throw new Error("Failed to fetch user info");
+      }
+
+      const discordUser = await userResponse.json();
 
       // Create or update user in database
-      let user = await storage.getUser(mockUser.id);
+      let user = await storage.getUser(discordUser.id);
       if (!user) {
-        user = await storage.createUser(mockUser);
+        user = await storage.createUser({
+          id: discordUser.id,
+          username: discordUser.username,
+          discriminator: discordUser.discriminator,
+          avatar: discordUser.avatar,
+          email: discordUser.email,
+          accessToken,
+          refreshToken: tokenData.refresh_token,
+          tokenExpiry: new Date(Date.now() + tokenData.expires_in * 1000),
+        });
       } else {
-        user = await storage.updateUser(mockUser.id, mockUser) || user;
+        user = await storage.updateUser(discordUser.id, {
+          username: discordUser.username,
+          discriminator: discordUser.discriminator,
+          avatar: discordUser.avatar,
+          email: discordUser.email,
+          accessToken,
+          refreshToken: tokenData.refresh_token,
+          tokenExpiry: new Date(Date.now() + tokenData.expires_in * 1000),
+        }) || user;
       }
 
       // Set session
       req.session.userId = user.id;
-      req.session.accessToken = mockUser.accessToken;
+      req.session.accessToken = accessToken;
 
-      res.json({ 
-        user: {
-          id: user.id,
-          username: user.username,
-          discriminator: user.discriminator,
-          avatar: getUserAvatarUrl(user.id, user.avatar),
-        }
-      });
+      // Redirect to dashboard
+      res.redirect("/dashboard");
     } catch (error) {
-      console.error("Login error:", error);
-      res.status(500).json({ error: "Failed to login" });
+      console.error("Discord OAuth error:", error);
+      res.redirect("/?error=auth_failed");
     }
   });
 
@@ -111,35 +167,17 @@ export async function registerRoutes(
   // Get user's admin guilds
   app.get("/api/guilds", requireAuth, async (req, res) => {
     try {
-      // In production, fetch from Discord API using access token
-      // For now, return mock data based on what guilds have bot
-      const mockGuilds = [
-        { 
-          id: "1", 
-          name: "Moody Vibes", 
-          icon: null, 
-          owner: false, 
-          permissions: "8" // Administrator
-        },
-        { 
-          id: "2", 
-          name: "Gaming Lounge", 
-          icon: null, 
-          owner: false, 
-          permissions: "8" 
-        },
-        { 
-          id: "4", 
-          name: "Test Server", 
-          icon: null, 
-          owner: true, 
-          permissions: "8" 
-        },
-      ];
+      const user = await storage.getUser(req.session.userId!);
+      if (!user) {
+        return res.status(401).json({ error: "User not found" });
+      }
+
+      // Fetch guilds from Discord API
+      const adminGuilds = await getAdminGuilds(user.accessToken);
 
       // Get settings for each guild
       const guildsWithSettings = await Promise.all(
-        mockGuilds.map(async (guild) => {
+        adminGuilds.map(async (guild) => {
           const settings = await storage.getGuildSettings(guild.id);
           return {
             id: guild.id,
@@ -162,16 +200,27 @@ export async function registerRoutes(
   app.get("/api/guilds/:guildId/settings", requireAuth, async (req, res) => {
     try {
       const { guildId } = req.params;
+      const user = await storage.getUser(req.session.userId!);
+      if (!user) {
+        return res.status(401).json({ error: "User not found" });
+      }
+
+      // Verify user has access to this guild
+      const adminGuilds = await getAdminGuilds(user.accessToken);
+      const guildExists = adminGuilds.some(g => g.id === guildId);
+      if (!guildExists) {
+        return res.status(403).json({ error: "No permission to access this guild" });
+      }
       
       let settings = await storage.getGuildSettings(guildId);
       
       // If settings don't exist, create default ones
       if (!settings) {
-        const mockGuild = { id: guildId, name: `Guild ${guildId}`, icon: null };
+        const guild = adminGuilds.find(g => g.id === guildId);
         settings = await storage.createGuildSettings({
           id: guildId,
-          guildName: mockGuild.name,
-          guildIcon: mockGuild.icon,
+          guildName: guild?.name || `Guild ${guildId}`,
+          guildIcon: guild?.icon || null,
           prefix: "!",
           volume: 100,
           djRole: null,
