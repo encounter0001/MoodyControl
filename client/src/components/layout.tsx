@@ -166,9 +166,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
             <div>
               <h4 className="font-bold mb-4 text-white">Product</h4>
               <ul className="space-y-2 text-sm text-gray-400">
-                <li><a href="#" className="hover:text-pink-400 transition-colors">Features</a></li>
-                <li><a href="#" className="hover:text-pink-400 transition-colors">Premium</a></li>
-                <li><a href="#" className="hover:text-pink-400 transition-colors">Changelog</a></li>
+                <li><Link href="/features"><a className="hover:text-pink-400 transition-colors">Features</a></Link></li>
+                <li><Link href="/premium"><a className="hover:text-pink-400 transition-colors">Premium</a></Link></li>
+                <li><Link href="/changelog"><a className="hover:text-pink-400 transition-colors">Changelog</a></Link></li>
               </ul>
             </div>
 
@@ -177,15 +177,15 @@ export function Layout({ children }: { children: React.ReactNode }) {
               <ul className="space-y-2 text-sm text-gray-400">
                 <li><a href="https://discord.com/oauth2/authorize?client_id=1344874349580255293&permissions=321609335434304&integration_type=0&scope=bot" className="hover:text-pink-400 transition-colors">Add Bot</a></li>
                 <li><a href="https://discord.com/servers/wyno-is-live-1129884940385914880" className="hover:text-pink-400 transition-colors">Support Server</a></li>
-                <li><a href="#" className="hover:text-pink-400 transition-colors">Community</a></li>
+                <li><Link href="/community"><a className="hover:text-pink-400 transition-colors">Community</a></Link></li>
               </ul>
             </div>
 
             <div>
               <h4 className="font-bold mb-4 text-white">Legal</h4>
               <ul className="space-y-2 text-sm text-gray-400">
-                <li><a href="#" className="hover:text-pink-400 transition-colors">Privacy</a></li>
-                <li><a href="#" className="hover:text-pink-400 transition-colors">Terms</a></li>
+                <li><Link href="/privacy"><a className="hover:text-pink-400 transition-colors">Privacy</a></Link></li>
+                <li><Link href="/terms"><a className="hover:text-pink-400 transition-colors">Terms</a></Link></li>
               </ul>
             </div>
           </div>
