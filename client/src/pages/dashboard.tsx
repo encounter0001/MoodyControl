@@ -53,8 +53,8 @@ export default function Dashboard() {
     return (
       <div className="container mx-auto px-4 py-12 flex items-center justify-center min-h-[60vh]">
         <div className="flex flex-col items-center gap-4">
-          <Loader className="w-12 h-12 text-primary animate-spin" />
-          <p className="text-muted-foreground">Loading guilds...</p>
+          <Loader className="w-12 h-12 text-pink-500 animate-spin" />
+          <p className="text-gray-400">Loading your servers...</p>
         </div>
       </div>
     );
@@ -64,27 +64,39 @@ export default function Dashboard() {
 
   return (
     <div className="container mx-auto px-4 py-12">
-      <div className="flex items-center justify-between mb-8">
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="flex items-center justify-between mb-12"
+      >
         <div>
-          <h1 className="text-3xl font-display font-bold text-white mb-2">Select a Server</h1>
-          <p className="text-muted-foreground">
-            Manage Moody Bot settings for your Discord servers.
+          <h1 className="text-4xl md:text-5xl font-display font-black mb-2 text-white">
+            <span className="bg-gradient-to-r from-pink-400 to-cyan-400 bg-clip-text text-transparent">Your Servers</span>
+          </h1>
+          <p className="text-gray-400 text-lg">
+            Manage Moody Bot settings across your Discord servers.
           </p>
         </div>
-        <div className="hidden md:block px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium">
-          {adminGuilds.length} Manageable Servers
+        <div className="hidden lg:flex px-6 py-3 rounded-full bg-gradient-to-r from-pink-500/20 to-cyan-500/20 border border-pink-500/30 text-white text-sm font-bold">
+          {adminGuilds.length} Server{adminGuilds.length !== 1 ? 's' : ''}
         </div>
-      </div>
+      </motion.div>
 
       {adminGuilds.length === 0 ? (
-        <div className="flex flex-col items-center justify-center py-20 text-center bg-card/30 rounded-2xl border border-white/5 border-dashed">
-          <AlertCircle className="w-12 h-12 text-muted-foreground mb-4" />
-          <h3 className="text-xl font-bold text-white mb-2">No Servers Found</h3>
-          <p className="text-muted-foreground max-w-md mb-6">
-            You don't have any servers where you are an administrator.
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="flex flex-col items-center justify-center py-20 text-center bg-gradient-to-br from-pink-500/10 to-cyan-500/10 rounded-3xl border-2 border-dashed border-pink-500/30"
+        >
+          <AlertCircle className="w-16 h-16 text-pink-500/50 mb-4" />
+          <h3 className="text-2xl font-bold text-white mb-2">No Servers Found</h3>
+          <p className="text-gray-400 max-w-md mb-8">
+            You don't have any servers where you are an administrator. Invite Moody to your server first!
           </p>
-          <Button>Invite Moody Bot</Button>
-        </div>
+          <Button className="font-bold bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white rounded-lg">
+            Invite Bot
+          </Button>
+        </motion.div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {adminGuilds.map((guild, i) => (
@@ -94,38 +106,42 @@ export default function Dashboard() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.1 }}
             >
-              <Card className="bg-card/40 backdrop-blur-sm border-white/5 hover:border-primary/50 transition-all duration-300 group overflow-hidden">
-                <div className="h-24 bg-gradient-to-r from-primary/20 to-secondary/20 group-hover:from-primary/30 group-hover:to-secondary/30 transition-colors" />
+              <Card className="relative overflow-hidden h-full border-0 bg-gradient-to-br from-purple-900/20 via-pink-900/10 to-cyan-900/20 hover-glow group">
+                <div className="absolute inset-0 bg-gradient-to-r from-pink-500/10 to-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+                
+                <div className="h-24 bg-gradient-to-r from-pink-500/20 to-cyan-500/20 group-hover:from-pink-500/30 group-hover:to-cyan-500/30 transition-all relative" />
                 
                 <CardHeader className="relative pb-2">
-                  <Avatar className="w-16 h-16 absolute -top-8 left-6 border-4 border-background shadow-lg">
+                  <Avatar className="w-16 h-16 absolute -top-8 left-6 border-4 border-background shadow-xl ring-2 ring-gradient-to-r from-pink-500 to-cyan-500">
                     <AvatarImage src={guild.icon || undefined} />
-                    <AvatarFallback className="bg-muted text-muted-foreground text-lg">
+                    <AvatarFallback className="bg-gradient-to-r from-pink-500 to-cyan-500 text-white text-lg font-bold">
                       {guild.name.slice(0, 2).toUpperCase()}
                     </AvatarFallback>
                   </Avatar>
                   <div className="pt-8">
-                    <CardTitle className="text-xl text-white truncate">{guild.name}</CardTitle>
+                    <CardTitle className="text-xl text-white truncate group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-pink-400 group-hover:to-cyan-400 transition-all">
+                      {guild.name}
+                    </CardTitle>
                   </div>
                 </CardHeader>
 
                 <CardContent>
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <span className={`w-2 h-2 rounded-full ${guild.botInGuild ? 'bg-green-500' : 'bg-yellow-500'}`} />
-                    {guild.botInGuild ? 'Bot Active' : 'Bot Not Added'}
+                  <div className="flex items-center gap-2 text-sm">
+                    <span className={`w-3 h-3 rounded-full ${guild.botInGuild ? 'bg-gradient-to-r from-green-400 to-emerald-400 shadow-lg shadow-green-500/50' : 'bg-gradient-to-r from-yellow-400 to-orange-400 shadow-lg shadow-yellow-500/50'}`} />
+                    <span className="text-gray-400">{guild.botInGuild ? '✓ Bot Active' : '⚠ Bot Not Added'}</span>
                   </div>
                 </CardContent>
 
-                <CardFooter className="pt-4 border-t border-white/5">
+                <CardFooter className="pt-4 border-t border-white/10 relative">
                   {guild.botInGuild ? (
                     <Link href={`/dashboard/${guild.id}`}>
-                      <Button className="w-full bg-white/5 hover:bg-primary hover:text-white border-white/10 transition-all">
+                      <Button className="w-full font-bold rounded-lg bg-gradient-to-r from-pink-500/20 to-cyan-500/20 hover:from-pink-500/40 hover:to-cyan-500/40 border border-pink-500/30 hover:border-pink-500/50 text-white transition-all">
                         <Settings className="w-4 h-4 mr-2" />
                         Manage Bot
                       </Button>
                     </Link>
                   ) : (
-                    <Button className="w-full" variant="secondary">
+                    <Button className="w-full font-bold rounded-lg bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600 text-white">
                       <Plus className="w-4 h-4 mr-2" />
                       Invite Bot
                     </Button>
