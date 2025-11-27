@@ -21,7 +21,7 @@ export const guildSettings = pgTable("guild_settings", {
   id: text("id").primaryKey(), // Discord guild ID
   guildName: text("guild_name").notNull(),
   guildIcon: text("guild_icon"),
-  prefix: text("prefix").notNull().default("!"),
+  prefix: text("prefix").notNull().default("m!"),
   volume: integer("volume").notNull().default(100),
   djRole: text("dj_role"),
   bassBoost: boolean("bass_boost").notNull().default(false),

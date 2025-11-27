@@ -205,7 +205,7 @@ export async function registerRoutes(
               id: guild.id,
               guildName: guild.name,
               guildIcon: guild.icon,
-              prefix: "!",
+              prefix: "m!",
               volume: 100,
               bassBoost: false,
               nightcore: false,
