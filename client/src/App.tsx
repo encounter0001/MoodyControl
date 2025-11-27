@@ -6,6 +6,8 @@ import { Layout } from "@/components/layout";
 import Home from "@/pages/home";
 import Dashboard from "@/pages/dashboard";
 import GuildSettingsPage from "@/pages/guild-settings";
+import Features from "@/pages/features";
+import Commands from "@/pages/commands";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -13,6 +15,8 @@ function Router() {
     <Layout>
       <Switch>
         <Route path="/" component={Home} />
+        <Route path="/features" component={Features} />
+        <Route path="/commands" component={Commands} />
         <Route path="/dashboard" component={Dashboard} />
         <Route path="/dashboard/:id" component={GuildSettingsPage} />
         <Route component={NotFound} />

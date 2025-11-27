@@ -1,0 +1,34 @@
+{
+  "prefix": "!",
+  "defaultVolume": 100,
+  "maxQueueSize": 100,
+  "audioQuality": {
+    "bitrate": "384000",
+    "sampleRate": "48000",
+    "channels": "2"
+  },
+  "ffmpegOptions": {
+    "highWaterMark": 1,
+    "fec": true,
+    "plp": 0,
+    "frameDuration": 20,
+    "volume": 1
+  },
+  "embedColors": {
+    "success": "#43B581",
+    "error": "#F04747",
+    "info": "#7289DA"
+  },
+  "messages": {
+    "notInVoiceChannel": "You need to be in a voice channel to use this command!",
+    "noPermission": "I don't have permission to join your voice channel!",
+    "notPlaying": "No music is currently playing!",
+    "queueEmpty": "The queue is empty!",
+    "addedToQueue": "Added to queue:",
+    "nowPlaying": "Now playing:",
+    "skipSong": "Skipped the current song!",
+    "pauseSong": "Paused the music!",
+    "resumeSong": "Resumed the music!",
+    "stopPlaying": "Stopped playing and cleared the queue!"
+  }
+}

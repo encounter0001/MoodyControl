@@ -36,8 +36,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
             <Link href="/">
               <a className={`text-sm font-medium hover:text-primary transition-colors ${location === '/' ? 'text-primary' : 'text-muted-foreground'}`}>Home</a>
             </Link>
-            <a href="#" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">Features</a>
-            <a href="#" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">Commands</a>
+            <Link href="/features">
+              <a className={`text-sm font-medium hover:text-primary transition-colors ${location === '/features' ? 'text-primary' : 'text-muted-foreground'}`}>Features</a>
+            </Link>
+            <Link href="/commands">
+              <a className={`text-sm font-medium hover:text-primary transition-colors ${location === '/commands' ? 'text-primary' : 'text-muted-foreground'}`}>Commands</a>
+            </Link>
             <a href="#" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">Support</a>
           </nav>
 
