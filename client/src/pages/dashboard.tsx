@@ -1,16 +1,27 @@
-import { useEffect } from "react";
-import { useLocation, Link } from "wouter";
-import { useAuth, useGuilds } from "@/lib/mock-auth";
+import { useEffect, useState } from "react";
+import { useLocation } from "wouter";
+import { useAuth } from "@/lib/auth-context";
+import { guildsApi } from "@/lib/api";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Settings, Plus, AlertCircle } from "lucide-react";
+import { Settings, Plus, AlertCircle, Loader } from "lucide-react";
+import { Link } from "wouter";
 import { motion } from "framer-motion";
 
+interface Guild {
+  id: string;
+  name: string;
+  icon: string | null;
+  isAdmin: boolean;
+  botInGuild: boolean;
+}
+
 export default function Dashboard() {
-  const { user, isAuthenticated } = useAuth();
-  const { guilds } = useGuilds();
+  const { isAuthenticated } = useAuth();
   const [_, setLocation] = useLocation();
+  const [guilds, setGuilds] = useState<Guild[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -18,9 +29,37 @@ export default function Dashboard() {
     }
   }, [isAuthenticated, setLocation]);
 
+  useEffect(() => {
+    if (isAuthenticated) {
+      loadGuilds();
+    }
+  }, [isAuthenticated]);
+
+  async function loadGuilds() {
+    try {
+      setLoading(true);
+      const data = await guildsApi.getAll();
+      setGuilds(data);
+    } catch (error) {
+      console.error("Failed to load guilds:", error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
   if (!isAuthenticated) return null;
 
-  // Filter guilds where user is admin
+  if (loading) {
+    return (
+      <div className="container mx-auto px-4 py-12 flex items-center justify-center min-h-[60vh]">
+        <div className="flex flex-col items-center gap-4">
+          <Loader className="w-12 h-12 text-primary animate-spin" />
+          <p className="text-muted-foreground">Loading guilds...</p>
+        </div>
+      </div>
+    );
+  }
+
   const adminGuilds = guilds.filter(g => g.isAdmin);
 
   return (
@@ -42,7 +81,7 @@ export default function Dashboard() {
           <AlertCircle className="w-12 h-12 text-muted-foreground mb-4" />
           <h3 className="text-xl font-bold text-white mb-2">No Servers Found</h3>
           <p className="text-muted-foreground max-w-md mb-6">
-            You don't have any servers where you are an administrator, or Moody Bot isn't in your servers yet.
+            You don't have any servers where you are an administrator.
           </p>
           <Button>Invite Moody Bot</Button>
         </div>

@@ -1,7 +1,7 @@
 import { Link, useLocation } from "wouter";
-import { useAuth } from "@/lib/mock-auth";
+import { useAuth } from "@/lib/auth-context";
 import { Button } from "@/components/ui/button";
-import { Music, LayoutDashboard, LogOut, User } from "lucide-react";
+import { Music, LayoutDashboard, LogOut, User, Loader } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,7 +14,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import robotLogo from "@assets/generated_images/neon_robot_music_bot_logo.png";
 
 export function Layout({ children }: { children: React.ReactNode }) {
-  const { user, login, logout, isAuthenticated } = useAuth();
+  const { user, login, logout, isAuthenticated, isLoading } = useAuth();
   const [location] = useLocation();
 
   return (
@@ -46,7 +46,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
           </nav>
 
           <div className="flex items-center gap-4">
-            {isAuthenticated ? (
+            {isLoading ? (
+              <Loader className="w-4 h-4 animate-spin text-primary" />
+            ) : isAuthenticated ? (
               <div className="flex items-center gap-4">
                 <Link href="/dashboard">
                   <Button variant="ghost" className={`hidden md:flex gap-2 ${location.startsWith('/dashboard') ? 'bg-primary/10 text-primary' : ''}`}>

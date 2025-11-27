@@ -1,4 +1,4 @@
-import { useAuth } from "@/lib/mock-auth";
+import { useAuth } from "@/lib/auth-context";
 import { Button } from "@/components/ui/button";
 import { Music, Shield, Zap, Globe, Headphones, Server } from "lucide-react";
 import { Link } from "wouter";
