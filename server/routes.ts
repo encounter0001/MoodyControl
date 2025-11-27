@@ -198,12 +198,27 @@ export async function registerRoutes(
       const guildsWithSettings = await Promise.all(
         adminGuilds.map(async (guild) => {
           const settings = await storage.getGuildSettings(guild.id);
+          
+          // If no settings exist but guild is in admin list, create default settings
+          if (!settings) {
+            await storage.createGuildSettings({
+              id: guild.id,
+              guildName: guild.name,
+              guildIcon: guild.icon,
+              prefix: "!",
+              volume: 100,
+              bassBoost: false,
+              nightcore: false,
+              vaporwave: false,
+            });
+          }
+          
           return {
             id: guild.id,
             name: guild.name,
             icon: getGuildIconUrl(guild.id, guild.icon),
             isAdmin: true,
-            botInGuild: settings !== undefined,
+            botInGuild: true, // Bot is always in guilds from Discord admin list
           };
         })
       );
