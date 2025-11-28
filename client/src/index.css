@@ -165,22 +165,7 @@ h1, h2, h3, h4, h5, h6 {
   animation: rotate-gradient 3s linear infinite;
 }
 
-@keyframes rotate-gradient {
-  0% { filter: hue-rotate(0deg); }
-  100% { filter: hue-rotate(360deg); }
-}
-
 /* Futuristic Animations */
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-20px); }
-}
-
-@keyframes float-slow {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-30px); }
-}
-
 @keyframes glow-pulse {
   0%, 100% { box-shadow: 0 0 15px rgba(255, 0, 255, 0.3); }
   50% { box-shadow: 0 0 25px rgba(255, 0, 255, 0.5); }
@@ -191,52 +176,14 @@ h1, h2, h3, h4, h5, h6 {
   50% { opacity: 1; }
 }
 
-@keyframes cyber-scan {
-  0% { transform: translateY(0); opacity: 0; }
-  50% { opacity: 1; }
-  100% { transform: translateY(10px); opacity: 0; }
-}
-
-@keyframes data-flow {
-  0% { transform: translateX(-100%); opacity: 0; }
-  50% { opacity: 1; }
-  100% { transform: translateX(100%); opacity: 0; }
-}
-
-@keyframes rotate-border {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-@keyframes shimmer {
-  0% { background-position: -1000px 0; }
-  100% { background-position: 1000px 0; }
-}
-
-.animate-float {
-  animation: float 3s ease-in-out infinite;
-}
-
-.animate-float-slow {
-  animation: float-slow 4s ease-in-out infinite;
-}
-
 .animate-glow-pulse {
-  animation: glow-pulse 2.5s ease-in-out infinite;
+  animation: glow-pulse 2.5s linear infinite;
   will-change: box-shadow;
 }
 
 .animate-neon {
-  animation: neon-glow 4s ease-in-out infinite;
+  animation: neon-glow 4s linear infinite;
   will-change: opacity;
-}
-
-.animate-cyber-scan {
-  animation: cyber-scan 2s ease-in-out infinite;
-}
-
-.animate-data-flow {
-  animation: data-flow 3s ease-in-out infinite;
 }
 
 /* Futuristic card effects */
@@ -252,21 +199,18 @@ h1, h2, h3, h4, h5, h6 {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-  animation: shimmer 4s linear infinite;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
   z-index: 1;
   pointer-events: none;
-  will-change: transform;
 }
 
 /* Holographic effect */
 .holographic {
   position: relative;
-  background: linear-gradient(135deg, rgba(255, 0, 255, 0.1), rgba(0, 255, 255, 0.1), rgba(255, 165, 0, 0.1));
+  background: linear-gradient(135deg, rgba(255, 0, 255, 0.08), rgba(0, 255, 255, 0.08));
   box-shadow: 
-    inset 0 0 20px rgba(255, 0, 255, 0.2),
-    0 0 30px rgba(255, 0, 255, 0.3),
-    0 0 60px rgba(0, 255, 255, 0.2);
+    inset 0 0 15px rgba(255, 0, 255, 0.15),
+    0 0 20px rgba(255, 0, 255, 0.2);
 }
 
 /* Custom scrollbar */

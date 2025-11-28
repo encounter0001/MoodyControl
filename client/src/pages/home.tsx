@@ -161,47 +161,37 @@ export default function Home() {
       <section className="py-32 relative z-10 overflow-hidden">
         <div className="container mx-auto px-4">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.6 }}
             className="text-center mb-20"
           >
-            <motion.h2 
-              className="text-5xl md:text-6xl font-display font-black mb-4"
-              whileInView={{ scale: 1.05 }}
-              viewport={{ once: true }}
-            >
+            <h2 className="text-5xl md:text-6xl font-display font-black mb-4">
               <span className="bg-gradient-to-r from-pink-400 via-orange-400 to-cyan-400 bg-clip-text text-transparent animate-neon">
                 Why Choose Moody?
               </span>
-            </motion.h2>
-            <motion.p 
-              className="text-xl text-gray-300 max-w-2xl mx-auto"
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-            >
+            </h2>
+            <p className="text-xl text-gray-300 max-w-2xl mx-auto">
               Everything you need for the ultimate Discord music experience
-            </motion.p>
+            </p>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {features.map((feature, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 50, rotateX: 90 }}
-                whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-80px" }}
-                transition={{ delay: i * 0.15, duration: 0.7, type: "spring", stiffness: 100 }}
-                whileHover={{ y: -20, scale: 1.02 }}
-                className="group h-full perspective"
+                transition={{ delay: i * 0.15, duration: 0.6 }}
+                whileHover={{ y: -15, scale: 1.02 }}
+                className="group h-full"
               >
                 <div className="relative overflow-hidden rounded-3xl p-8 h-full glass-card card-hover-glow holographic futuristic-card">
                   <div className={`absolute inset-0 opacity-0 group-hover:opacity-30 transition-opacity duration-500 bg-gradient-to-br ${feature.color}`} />
                   <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                    <div className={`absolute top-0 right-0 w-40 h-40 bg-gradient-to-br ${feature.color} opacity-20 rounded-full blur-3xl group-hover:blur-2xl transition-all duration-500`} />
+                    <div className={`absolute top-0 right-0 w-40 h-40 bg-gradient-to-br ${feature.color} opacity-15 rounded-full blur-2xl transition-all duration-500`} />
                   </div>
                   
                   <div className={`relative mb-6 p-5 rounded-2xl w-fit bg-gradient-to-br ${feature.color} text-white shadow-lg shadow-pink-500/30 group-hover:shadow-2xl group-hover:shadow-pink-500/60 transition-all duration-400`}>
@@ -249,11 +239,11 @@ export default function Home() {
             ].map((stat, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 40, scale: 0.8 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
-                transition={{ delay: i * 0.15, duration: 0.7, type: "spring", stiffness: 80 }}
-                whileHover={{ scale: 1.15, y: -10 }}
+                transition={{ delay: i * 0.1, duration: 0.5 }}
+                whileHover={{ scale: 1.12, y: -8 }}
                 className="group relative"
               >
                 <div className="relative p-8 rounded-2xl glass-card holographic group-hover:animate-glow-pulse transition-all duration-300">
@@ -261,22 +251,13 @@ export default function Home() {
                     {stat.icon}
                   </div>
                   
-                  <motion.div 
-                    className="text-4xl md:text-5xl font-display font-black bg-gradient-to-r from-pink-400 via-orange-400 to-cyan-400 bg-clip-text text-transparent mb-2 group-hover:animate-neon"
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.2 + 0.3 }}
-                  >
+                  <div className="text-4xl md:text-5xl font-display font-black bg-gradient-to-r from-pink-400 via-orange-400 to-cyan-400 bg-clip-text text-transparent mb-2 group-hover:animate-neon">
                     {stat.value}
-                  </motion.div>
+                  </div>
                   
-                  <motion.div 
-                    className="text-gray-400 font-medium uppercase tracking-widest text-sm group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-pink-300 group-hover:to-cyan-300 transition-all duration-300"
-                    whileHover={{ scale: 1.1, letterSpacing: "0.1em" }}
-                  >
+                  <div className="text-gray-400 font-medium uppercase tracking-widest text-sm group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-pink-300 group-hover:to-cyan-300 transition-all duration-300">
                     {stat.label}
-                  </motion.div>
+                  </div>
                   
                 </div>
               </motion.div>
