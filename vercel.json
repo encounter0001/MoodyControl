@@ -7,11 +7,5 @@
       "source": "/api/(.*)",
       "destination": "http://localhost:3001/api/$1"
     }
-  ],
-  "env": {
-    "NODE_ENV": "production"
-  },
-  "env.production": {
-    "NODE_ENV": "production"
-  }
+  ]
 }
