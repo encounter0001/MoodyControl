@@ -214,29 +214,60 @@ export default function Home() {
 
       {/* Features Grid */}
       <section className="py-32 relative z-10 overflow-hidden">
-        <div className="container mx-auto px-4">
+        {/* Animated background elements */}
+        <div className="absolute inset-0 pointer-events-none">
+          <motion.div 
+            className="absolute top-20 left-10 w-72 h-72 bg-pink-500/10 rounded-full blur-3xl"
+            animate={{ y: [0, 50, 0], x: [0, 30, 0] }}
+            transition={{ duration: 8, repeat: Infinity }}
+          />
+          <motion.div 
+            className="absolute bottom-20 right-10 w-72 h-72 bg-cyan-500/10 rounded-full blur-3xl"
+            animate={{ y: [0, -50, 0], x: [0, -30, 0] }}
+            transition={{ duration: 10, repeat: Infinity, delay: 1 }}
+          />
+        </div>
+
+        <div className="container mx-auto px-4 relative z-10">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 60 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.9, type: "spring" }}
             className="text-center mb-20"
           >
             <motion.h2 
-              className="text-5xl md:text-6xl font-display font-black mb-4"
-              whileInView={{ scale: 1.05 }}
+              className="text-5xl md:text-6xl font-display font-black mb-4 overflow-hidden"
+              initial={{ height: 0 }}
+              whileInView={{ height: "auto" }}
               viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
             >
-              <span className="bg-gradient-to-r from-pink-400 via-orange-400 to-cyan-400 bg-clip-text text-transparent animate-neon">
+              <motion.span 
+                className="block bg-gradient-to-r from-pink-400 via-orange-400 to-cyan-400 bg-clip-text text-transparent animate-neon"
+                initial={{ y: 100 }}
+                whileInView={{ y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.1 }}
+              >
                 Why Choose Moody?
-              </span>
+              </motion.span>
             </motion.h2>
+            
+            <motion.div
+              className="h-1 bg-gradient-to-r from-pink-400 via-cyan-400 to-orange-400 rounded-full mx-auto mb-6 w-0"
+              initial={{ width: 0 }}
+              whileInView={{ width: "60px" }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+            />
+            
             <motion.p 
               className="text-xl text-gray-300 max-w-2xl mx-auto"
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, filter: "blur(10px)" }}
+              whileInView={{ opacity: 1, filter: "blur(0px)" }}
               viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
+              transition={{ duration: 0.9, delay: 0.2 }}
             >
               Everything you need for the ultimate Discord music experience
             </motion.p>
@@ -246,44 +277,59 @@ export default function Home() {
             {features.map((feature, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 50, rotateX: 90 }}
+                initial={{ opacity: 0, y: 80, rotateX: 90 }}
                 whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
                 viewport={{ once: true, margin: "-80px" }}
-                transition={{ delay: i * 0.15, duration: 0.7, type: "spring", stiffness: 100 }}
-                whileHover={{ y: -20, scale: 1.02 }}
+                transition={{ delay: i * 0.12, duration: 0.8, type: "spring", stiffness: 100 }}
+                whileHover={{ y: -25, scale: 1.05 }}
                 className="group h-full perspective"
               >
-                <div className="relative overflow-hidden rounded-3xl p-8 h-full glass-card card-hover-glow holographic futuristic-card">
-                  <div className={`absolute inset-0 opacity-0 group-hover:opacity-30 transition-opacity duration-500 bg-gradient-to-br ${feature.color}`} />
+                <div className="relative overflow-hidden rounded-3xl p-8 h-full glass-card card-hover-glow holographic futuristic-card group-hover:shadow-2xl group-hover:shadow-pink-500/40 transition-all duration-500">
+                  <div className={`absolute inset-0 opacity-0 group-hover:opacity-40 transition-opacity duration-500 bg-gradient-to-br ${feature.color}`} />
                   <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                    <div className={`absolute top-0 right-0 w-40 h-40 bg-gradient-to-br ${feature.color} opacity-20 rounded-full blur-3xl group-hover:blur-2xl transition-all duration-500 animate-float`} />
+                    <div className={`absolute top-0 right-0 w-40 h-40 bg-gradient-to-br ${feature.color} opacity-20 rounded-full blur-3xl group-hover:blur-xl transition-all duration-500 animate-float`} />
                   </div>
+                  
+                  <div className="absolute top-0 left-0 w-full h-0 group-hover:h-1 bg-gradient-to-r from-transparent via-pink-400 to-transparent transition-all duration-500" />
                   
                   <motion.div 
                     className={`relative mb-6 p-5 rounded-2xl w-fit bg-gradient-to-br ${feature.color} text-white shadow-lg shadow-pink-500/30 group-hover:shadow-2xl group-hover:shadow-pink-500/60 transition-all duration-400 animate-float`}
-                    whileHover={{ scale: 1.3, rotate: 360 }}
-                    transition={{ duration: 0.6 }}
+                    whileHover={{ scale: 1.4, rotate: 360, y: -5 }}
+                    whileInView={{ rotate: [0, 5, -5, 0] }}
+                    viewport={{ once: true, margin: "-50px" }}
+                    transition={{ duration: 0.7 }}
                   >
                     {feature.icon}
                   </motion.div>
                   
                   <motion.h3 
-                    className="relative text-2xl font-bold mb-4 text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-pink-300 group-hover:to-cyan-300 transition-all duration-400 font-display"
-                    whileHover={{ letterSpacing: "0.05em" }}
+                    className="relative text-2xl font-bold mb-4 text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-pink-300 group-hover:to-cyan-300 transition-all duration-400 font-display overflow-hidden"
+                    initial={{ height: 0, opacity: 0 }}
+                    whileInView={{ height: "auto", opacity: 1 }}
+                    viewport={{ once: true, margin: "-50px" }}
+                    transition={{ duration: 0.6, delay: 0.2 }}
+                    whileHover={{ letterSpacing: "0.05em", scale: 1.05 }}
                   >
                     {feature.title}
                   </motion.h3>
                   
                   <motion.p 
                     className="relative text-gray-300 leading-relaxed group-hover:text-gray-100 transition-colors duration-400 text-sm md:text-base"
-                    initial={{ opacity: 0.7 }}
+                    initial={{ opacity: 0, filter: "blur(5px)" }}
+                    whileInView={{ opacity: 0.8, filter: "blur(0px)" }}
+                    viewport={{ once: true, margin: "-50px" }}
+                    transition={{ duration: 0.7, delay: 0.3 }}
                     whileHover={{ opacity: 1 }}
                   >
                     {feature.description}
                   </motion.p>
                   
                   <motion.div 
-                    className="relative mt-6 h-1 w-0 bg-gradient-to-r from-pink-400 to-cyan-400 transition-all duration-500 rounded-full group-hover:w-12"
+                    className="relative mt-6 h-1 w-0 bg-gradient-to-r from-pink-400 to-cyan-400 transition-all duration-500 rounded-full group-hover:w-full"
+                    initial={{ scaleX: 0 }}
+                    whileInView={{ scaleX: 0 }}
+                    whileHover={{ scaleX: 1, originX: 0 }}
+                    transition={{ duration: 0.4 }}
                   />
                 </div>
               </motion.div>
@@ -293,22 +339,54 @@ export default function Home() {
       </section>
 
       {/* Stats Section */}
-      <section className="py-20 border-t border-white/10 bg-gradient-to-r from-pink-500/10 to-cyan-500/10 relative z-10 overflow-hidden">
+      <section className="py-32 border-t border-white/10 bg-gradient-to-b from-pink-500/5 to-cyan-500/5 relative z-10 overflow-hidden">
+        {/* Background Animation */}
         <div className="absolute inset-0 overflow-hidden">
           <motion.div 
-            className="absolute top-0 left-0 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl"
-            animate={{ y: [0, 30, 0] }}
-            transition={{ duration: 5, repeat: Infinity }}
+            className="absolute top-0 left-0 w-96 h-96 bg-pink-500/15 rounded-full blur-3xl"
+            animate={{ y: [0, 50, 0], x: [0, 30, 0], scale: [1, 1.2, 1] }}
+            transition={{ duration: 7, repeat: Infinity }}
           />
           <motion.div 
-            className="absolute bottom-0 right-0 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl"
-            animate={{ y: [0, -30, 0] }}
-            transition={{ duration: 5, repeat: Infinity }}
+            className="absolute bottom-0 right-0 w-96 h-96 bg-cyan-500/15 rounded-full blur-3xl"
+            animate={{ y: [0, -50, 0], x: [0, -30, 0], scale: [1, 0.8, 1] }}
+            transition={{ duration: 8, repeat: Infinity, delay: 1 }}
           />
         </div>
         
+        <motion.div
+          className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-pink-500/50 to-transparent"
+          animate={{ opacity: [0.3, 0.8, 0.3] }}
+          transition={{ duration: 3, repeat: Infinity }}
+        />
+        
         <div className="container mx-auto px-4 relative z-10">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.7 }}
+            className="text-center mb-16"
+          >
+            <motion.h2
+              className="text-4xl md:text-5xl font-display font-black mb-2 bg-gradient-to-r from-pink-400 via-orange-400 to-cyan-400 bg-clip-text text-transparent"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.8, delay: 0.1 }}
+            >
+              Our Impact
+            </motion.h2>
+            <motion.div
+              className="h-1 w-16 bg-gradient-to-r from-pink-400 to-cyan-400 rounded-full mx-auto"
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            />
+          </motion.div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 text-center">
             {[
               { label: "Active Servers", value: stats.activeServers.toLocaleString(), icon: "🎵" },
               { label: "Vibing Now", value: (Math.floor(stats.usersJamming / 1000)).toLocaleString() + "K+", icon: "🔥" },
@@ -317,45 +395,64 @@ export default function Home() {
             ].map((stat, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 40, scale: 0.8 }}
+                initial={{ opacity: 0, y: 60, scale: 0.7 }}
                 whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ delay: i * 0.15, duration: 0.7, type: "spring", stiffness: 80 }}
-                whileHover={{ scale: 1.15, y: -10 }}
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{ 
+                  delay: i * 0.12, 
+                  duration: 0.8, 
+                  type: "spring", 
+                  stiffness: 100,
+                  damping: 15
+                }}
+                whileHover={{ scale: 1.2, y: -15 }}
                 className="group relative"
               >
-                <div className="relative p-8 rounded-2xl glass-card holographic group-hover:animate-glow-pulse transition-all duration-300">
+                <motion.div 
+                  className="relative p-8 rounded-2xl glass-card holographic group-hover:animate-glow-pulse transition-all duration-300 border-2 border-transparent group-hover:border-pink-500/50"
+                  animate={{ borderColor: ["rgba(255,0,255,0)", "rgba(255,0,255,0.3)", "rgba(255,0,255,0)"] }}
+                  transition={{ duration: 3, repeat: Infinity, delay: i * 0.3 }}
+                >
                   <motion.div 
-                    className="text-4xl mb-3 inline-block"
-                    animate={{ scale: [1, 1.3, 1], rotate: [0, 10, -10, 0] }}
-                    transition={{ duration: 2, repeat: Infinity, delay: i * 0.2 }}
+                    className="text-5xl md:text-6xl mb-4 inline-block"
+                    initial={{ scale: 0, rotate: -180 }}
+                    whileInView={{ scale: 1, rotate: 0 }}
+                    viewport={{ once: true, margin: "-50px" }}
+                    transition={{ delay: i * 0.15 + 0.2, duration: 0.8, type: "spring" }}
+                    animate={{ scale: [1, 1.2, 1], rotate: [0, 10, -10, 0] }}
+                    whileHover={{ scale: 1.4, rotate: 360 }}
+                    transitionEnd={{ rotate: 0 }}
                   >
                     {stat.icon}
                   </motion.div>
                   
                   <motion.div 
-                    className="text-4xl md:text-5xl font-display font-black bg-gradient-to-r from-pink-400 via-orange-400 to-cyan-400 bg-clip-text text-transparent mb-2 group-hover:animate-neon"
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.2 + 0.3 }}
+                    className="text-3xl md:text-5xl font-display font-black bg-gradient-to-r from-pink-400 via-orange-400 to-cyan-400 bg-clip-text text-transparent mb-3 group-hover:animate-neon"
+                    initial={{ opacity: 0, scale: 0 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true, margin: "-50px" }}
+                    transition={{ delay: i * 0.15 + 0.4, duration: 0.7, type: "spring" }}
                   >
                     {stat.value}
                   </motion.div>
                   
                   <motion.div 
-                    className="text-gray-400 font-medium uppercase tracking-widest text-sm group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-pink-300 group-hover:to-cyan-300 transition-all duration-300"
-                    whileHover={{ scale: 1.1, letterSpacing: "0.1em" }}
+                    className="text-gray-300 font-medium uppercase tracking-wider text-xs md:text-sm group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-pink-300 group-hover:to-cyan-300 transition-all duration-300"
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-50px" }}
+                    transition={{ delay: i * 0.15 + 0.5, duration: 0.6 }}
+                    whileHover={{ scale: 1.15, letterSpacing: "0.15em" }}
                   >
                     {stat.label}
                   </motion.div>
                   
                   <motion.div 
-                    className="absolute inset-0 rounded-2xl bg-gradient-to-r from-pink-500/0 to-cyan-500/0 group-hover:from-pink-500/10 group-hover:to-cyan-500/10 transition-all duration-300 pointer-events-none"
+                    className="absolute inset-0 rounded-2xl bg-gradient-to-r from-pink-500/0 via-pink-500/10 to-cyan-500/0 pointer-events-none"
                     animate={{ opacity: [0, 0.5, 0] }}
-                    transition={{ duration: 3, repeat: Infinity, delay: i * 0.3 }}
+                    transition={{ duration: 2.5, repeat: Infinity, delay: i * 0.4 }}
                   />
-                </div>
+                </motion.div>
               </motion.div>
             ))}
           </div>
