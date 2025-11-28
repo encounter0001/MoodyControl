@@ -105,7 +105,7 @@ export default function Commands() {
           transition={{ delay: 0.1 }}
           className="text-xl text-gray-400 max-w-2xl mx-auto"
         >
-          Master Moody Bot with our comprehensive list of commands. Get help in our <a href="https://discord.com/servers/wyno-is-live-1129884940385914880" className="text-pink-400 hover:text-pink-300 font-bold underline">support server</a>.
+          Master Moody Bot with our comprehensive list of commands. Get help in our <a href="https://discord.gg/9WJSP4Kqg4" className="text-pink-400 hover:text-pink-300 font-bold underline">support server</a>.
         </motion.p>
       </div>
 

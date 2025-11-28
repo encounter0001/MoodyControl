@@ -50,7 +50,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 Commands
               </a>
             </Link>
-            <a href="https://discord.com/servers/wyno-is-live-1129884940385914880" className="text-sm font-bold text-gray-400 hover:text-pink-400 transition-all duration-300">Support</a>
+            <a href="https://discord.gg/9WJSP4Kqg4" className="text-sm font-bold text-gray-400 hover:text-pink-400 transition-all duration-300">Support</a>
           </nav>
 
           <div className="flex items-center gap-4">
@@ -124,7 +124,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
               <Link href="/commands">
                 <a className="block text-sm font-bold text-gray-400 hover:text-pink-400">Commands</a>
               </Link>
-              <a href="https://discord.com/servers/wyno-is-live-1129884940385914880" className="block text-sm font-bold text-gray-400 hover:text-pink-400">Support</a>
+              <a href="https://discord.gg/9WJSP4Kqg4" className="block text-sm font-bold text-gray-400 hover:text-pink-400">Support</a>
               {isAuthenticated && (
                 <Link href="/dashboard">
                   <Button className="w-full font-bold bg-gradient-to-r from-pink-500 to-orange-500 text-white rounded-lg">
@@ -177,7 +177,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
               <h4 className="font-bold mb-4 text-white">Resources</h4>
               <ul className="space-y-2 text-sm text-gray-400">
                 <li><a href="https://discord.com/oauth2/authorize?client_id=1344874349580255293&permissions=321609335434304&integration_type=0&scope=bot" className="hover:text-pink-400 transition-colors">Add Bot</a></li>
-                <li><a href="https://discord.com/servers/wyno-is-live-1129884940385914880" className="hover:text-pink-400 transition-colors">Support Server</a></li>
+                <li><a href="https://discord.gg/9WJSP4Kqg4" className="hover:text-pink-400 transition-colors">Support Server</a></li>
                 <li><Link href="/community"><a className="hover:text-pink-400 transition-colors">Community</a></Link></li>
               </ul>
             </div>
