@@ -201,16 +201,12 @@ export default function Home() {
                 <div className="relative overflow-hidden rounded-3xl p-8 h-full glass-card card-hover-glow holographic futuristic-card">
                   <div className={`absolute inset-0 opacity-0 group-hover:opacity-30 transition-opacity duration-500 bg-gradient-to-br ${feature.color}`} />
                   <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                    <div className={`absolute top-0 right-0 w-40 h-40 bg-gradient-to-br ${feature.color} opacity-20 rounded-full blur-3xl group-hover:blur-2xl transition-all duration-500 animate-float`} />
+                    <div className={`absolute top-0 right-0 w-40 h-40 bg-gradient-to-br ${feature.color} opacity-20 rounded-full blur-3xl group-hover:blur-2xl transition-all duration-500`} />
                   </div>
                   
-                  <motion.div 
-                    className={`relative mb-6 p-5 rounded-2xl w-fit bg-gradient-to-br ${feature.color} text-white shadow-lg shadow-pink-500/30 group-hover:shadow-2xl group-hover:shadow-pink-500/60 transition-all duration-400 animate-float`}
-                    whileHover={{ scale: 1.3, rotate: 360 }}
-                    transition={{ duration: 0.6 }}
-                  >
+                  <div className={`relative mb-6 p-5 rounded-2xl w-fit bg-gradient-to-br ${feature.color} text-white shadow-lg shadow-pink-500/30 group-hover:shadow-2xl group-hover:shadow-pink-500/60 transition-all duration-400`}>
                     {feature.icon}
-                  </motion.div>
+                  </div>
                   
                   <motion.h3 
                     className="relative text-2xl font-bold mb-4 text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-pink-300 group-hover:to-cyan-300 transition-all duration-400 font-display"
@@ -239,17 +235,8 @@ export default function Home() {
 
       {/* Stats Section */}
       <section className="py-20 border-t border-white/10 bg-gradient-to-r from-pink-500/10 to-cyan-500/10 relative z-10 overflow-hidden">
-        <div className="absolute inset-0 overflow-hidden">
-          <motion.div 
-            className="absolute top-0 left-0 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl"
-            animate={{ y: [0, 30, 0] }}
-            transition={{ duration: 5, repeat: Infinity }}
-          />
-          <motion.div 
-            className="absolute bottom-0 right-0 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl"
-            animate={{ y: [0, -30, 0] }}
-            transition={{ duration: 5, repeat: Infinity }}
-          />
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-0 left-0 w-80 h-80 bg-pink-500/10 rounded-full blur-3xl opacity-50" />
         </div>
         
         <div className="container mx-auto px-4 relative z-10">
@@ -270,13 +257,9 @@ export default function Home() {
                 className="group relative"
               >
                 <div className="relative p-8 rounded-2xl glass-card holographic group-hover:animate-glow-pulse transition-all duration-300">
-                  <motion.div 
-                    className="text-4xl mb-3 inline-block"
-                    animate={{ scale: [1, 1.3, 1], rotate: [0, 10, -10, 0] }}
-                    transition={{ duration: 2, repeat: Infinity, delay: i * 0.2 }}
-                  >
+                  <div className="text-4xl mb-3 inline-block">
                     {stat.icon}
-                  </motion.div>
+                  </div>
                   
                   <motion.div 
                     className="text-4xl md:text-5xl font-display font-black bg-gradient-to-r from-pink-400 via-orange-400 to-cyan-400 bg-clip-text text-transparent mb-2 group-hover:animate-neon"
@@ -295,11 +278,6 @@ export default function Home() {
                     {stat.label}
                   </motion.div>
                   
-                  <motion.div 
-                    className="absolute inset-0 rounded-2xl bg-gradient-to-r from-pink-500/0 to-cyan-500/0 group-hover:from-pink-500/10 group-hover:to-cyan-500/10 transition-all duration-300 pointer-events-none"
-                    animate={{ opacity: [0, 0.5, 0] }}
-                    transition={{ duration: 3, repeat: Infinity, delay: i * 0.3 }}
-                  />
                 </div>
               </motion.div>
             ))}
@@ -309,12 +287,8 @@ export default function Home() {
 
       {/* CTA Section */}
       <section className="py-32 relative z-10 overflow-hidden">
-        <div className="absolute inset-0 overflow-hidden">
-          <motion.div 
-            className="absolute top-0 left-1/2 w-full h-96 bg-gradient-to-b from-pink-500/20 to-transparent"
-            animate={{ y: [-50, 50, -50] }}
-            transition={{ duration: 6, repeat: Infinity }}
-          />
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-0 left-0 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl" />
         </div>
         
         <div className="container mx-auto px-4 text-center relative z-10">
@@ -351,8 +325,6 @@ export default function Home() {
             </motion.p>
             
             <motion.div 
-              whileHover={{ scale: 1.12, y: -5 }} 
-              whileTap={{ scale: 0.95 }}
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
@@ -360,23 +332,10 @@ export default function Home() {
             >
               <Button 
                 size="lg" 
-                className="btn-gradient h-16 px-16 text-lg font-bold text-white rounded-2xl shadow-2xl shadow-pink-500/50 border-0 relative overflow-hidden group hover:shadow-3xl hover:shadow-pink-400/70 transition-all duration-300 animate-glow-pulse"
+                className="btn-gradient h-16 px-16 text-lg font-bold text-white rounded-2xl shadow-2xl shadow-pink-500/50 border-0 relative overflow-hidden group hover:shadow-3xl hover:shadow-pink-400/70 transition-all duration-300 hover:scale-105"
               >
                 <span className="relative z-10 flex items-center gap-2">
-                  <motion.span
-                    animate={{ opacity: [1, 0.5, 1] }}
-                    transition={{ duration: 2, repeat: Infinity }}
-                  >
-                    ⚡
-                  </motion.span>
-                  Get Started Now 
-                  <motion.span 
-                    className="group-hover:translate-x-2 transition-transform duration-300 inline-block"
-                    animate={{ x: [0, 8, 0] }}
-                    transition={{ duration: 1.5, repeat: Infinity }}
-                  >
-                    →
-                  </motion.span>
+                  ⚡ Get Started Now →
                 </span>
               </Button>
             </motion.div>
