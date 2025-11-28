@@ -72,28 +72,32 @@ export default function Features() {
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
           {features.map((feature, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="group"
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ delay: i * 0.15, duration: 0.6 }}
+              whileHover={{ y: -10 }}
+              className="group h-full"
             >
-              <div className="relative overflow-hidden rounded-2xl p-8 h-full glass-card hover-glow">
-                <div className={`absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-300 bg-gradient-to-r ${feature.color}`} />
+              <div className="relative overflow-hidden rounded-3xl p-8 h-full glass-card card-hover-glow">
+                <div className={`absolute inset-0 opacity-0 group-hover:opacity-25 transition-opacity duration-500 bg-gradient-to-br ${feature.color}`} />
+                <div className="absolute -top-20 -right-20 w-40 h-40 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                  <div className={`w-full h-full bg-gradient-to-br ${feature.color} rounded-full blur-3xl opacity-30`} />
+                </div>
                 
-                <div className={`mb-6 p-4 rounded-xl w-fit bg-gradient-to-r ${feature.color} text-white group-hover:scale-110 transition-transform duration-300`}>
+                <div className={`relative mb-6 p-5 rounded-2xl w-fit bg-gradient-to-br ${feature.color} text-white group-hover:scale-125 transition-all duration-400 shadow-lg group-hover:shadow-2xl`}>
                   {feature.icon}
                 </div>
                 
-                <h3 className="text-2xl font-bold mb-3 text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-pink-400 group-hover:to-cyan-400 transition-all">
+                <h3 className="relative text-2xl font-bold mb-4 text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-pink-300 group-hover:to-cyan-300 transition-all duration-400 font-display">
                   {feature.title}
                 </h3>
                 
-                <p className="text-gray-400 leading-relaxed group-hover:text-gray-300">
+                <p className="relative text-gray-300 leading-relaxed group-hover:text-gray-100 transition-colors duration-400">
                   {feature.description}
                 </p>
               </div>
@@ -113,11 +117,15 @@ export default function Features() {
           <p className="text-gray-400 mb-8 max-w-2xl mx-auto">
             Join thousands of servers enjoying premium music experience with Moody Bot.
           </p>
-          <a href="https://discord.com/oauth2/authorize?client_id=1344874349580255293&permissions=321609335434304&integration_type=0&scope=bot">
-            <Button className="font-bold bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white rounded-xl hover:scale-105 transition-all shadow-lg shadow-pink-500/40">
-              Add to Your Server →
+          <motion.a 
+            href="https://discord.com/oauth2/authorize?client_id=1344874349580255293&permissions=321609335434304&integration_type=0&scope=bot"
+            whileHover={{ scale: 1.08 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <Button className="btn-gradient font-bold text-white rounded-2xl shadow-2xl shadow-pink-500/50 border-0 relative overflow-hidden group h-12 px-8">
+              <span className="relative z-10">Add to Your Server →</span>
             </Button>
-          </a>
+          </motion.a>
         </motion.div>
       </div>
     </div>

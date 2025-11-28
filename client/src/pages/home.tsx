@@ -179,30 +179,36 @@ export default function Home() {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {features.map((feature, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="group"
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ delay: i * 0.12, duration: 0.6 }}
+                whileHover={{ y: -12 }}
+                className="group h-full"
               >
-                <div className="relative overflow-hidden rounded-2xl p-8 h-full glass-card hover-glow">
-                  <div className={`absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-300 bg-gradient-to-r ${feature.color}`} />
+                <div className="relative overflow-hidden rounded-3xl p-8 h-full glass-card card-hover-glow">
+                  <div className={`absolute inset-0 opacity-0 group-hover:opacity-20 transition-opacity duration-500 bg-gradient-to-br ${feature.color}`} />
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                    <div className={`absolute top-0 right-0 w-40 h-40 bg-gradient-to-br ${feature.color} opacity-20 rounded-full blur-3xl group-hover:blur-2xl transition-all duration-500`} />
+                  </div>
                   
-                  <div className={`mb-6 p-4 rounded-xl w-fit bg-gradient-to-r ${feature.color} text-white group-hover:scale-110 transition-transform duration-300`}>
+                  <div className={`relative mb-6 p-5 rounded-2xl w-fit bg-gradient-to-br ${feature.color} text-white group-hover:scale-125 transition-all duration-400 shadow-lg group-hover:shadow-2xl group-hover:shadow-pink-500/50`}>
                     {feature.icon}
                   </div>
                   
-                  <h3 className="text-2xl font-bold mb-3 text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-pink-400 group-hover:to-cyan-400 transition-all duration-300">
+                  <h3 className="relative text-2xl font-bold mb-4 text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-pink-300 group-hover:to-cyan-300 transition-all duration-400 font-display">
                     {feature.title}
                   </h3>
                   
-                  <p className="text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors duration-300">
+                  <p className="relative text-gray-300 leading-relaxed group-hover:text-gray-100 transition-colors duration-400 text-sm md:text-base">
                     {feature.description}
                   </p>
+                  
+                  <div className="relative mt-6 h-1 w-0 group-hover:w-12 bg-gradient-to-r from-pink-400 to-cyan-400 transition-all duration-500 rounded-full" />
                 </div>
               </motion.div>
             ))}
@@ -253,9 +259,13 @@ export default function Home() {
             <p className="text-xl text-gray-400 mb-8">
               Join thousands of servers using Moody Music Bot. Setup takes less than 2 minutes.
             </p>
-            <Button size="lg" className="h-14 px-10 text-lg font-bold bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white hover:scale-105 transition-all duration-300 rounded-xl shadow-lg shadow-pink-500/40">
-              Get Started Now →
-            </Button>
+            <motion.div whileHover={{ scale: 1.08 }} whileTap={{ scale: 0.95 }}>
+              <Button size="lg" className="btn-gradient h-16 px-12 text-lg font-bold text-white rounded-2xl shadow-2xl shadow-pink-500/50 border-0 relative overflow-hidden group">
+                <span className="relative z-10 flex items-center gap-2">
+                  Get Started Now <span className="group-hover:translate-x-2 transition-transform duration-300">→</span>
+                </span>
+              </Button>
+            </motion.div>
           </motion.div>
         </div>
       </section>
