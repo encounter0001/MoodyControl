@@ -4,9 +4,24 @@ import { Music, Zap, Globe, Headphones, Server, Sparkles, Volume2 } from "lucide
 import { Link } from "wouter";
 import heroBg from "@assets/generated_images/cyberpunk_abstract_music_waves_background.png";
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 
 export default function Home() {
   const { login, isAuthenticated } = useAuth();
+  const [stats, setStats] = useState({
+    activeServers: 0,
+    usersJamming: 0,
+    songsPlayed: 0,
+    uptime: "0d 0h",
+    uptimePercent: "99.9%"
+  });
+
+  useEffect(() => {
+    fetch("/api/stats")
+      .then(res => res.json())
+      .then(data => setStats(data))
+      .catch(err => console.error("Failed to fetch stats:", err));
+  }, []);
 
   const features = [
     {
@@ -190,10 +205,10 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {[
-              { label: "Active Servers", value: "10K+", icon: "🎵" },
-              { label: "Users Jamming", value: "5M+", icon: "👥" },
-              { label: "Songs Played", value: "120M+", icon: "🎶" },
-              { label: "Uptime", value: "99.9%", icon: "⚡" },
+              { label: "Active Servers", value: stats.activeServers.toLocaleString(), icon: "🎵" },
+              { label: "Users Jamming", value: (Math.floor(stats.usersJamming / 1000)).toLocaleString() + "K+", icon: "👥" },
+              { label: "Songs Played", value: (Math.floor(stats.songsPlayed / 1000)).toLocaleString() + "K+", icon: "🎶" },
+              { label: "Uptime", value: stats.uptimePercent, icon: "⚡" },
             ].map((stat, i) => (
               <motion.div
                 key={i}
