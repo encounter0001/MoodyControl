@@ -165,10 +165,13 @@ export async function registerRoutes(
       const days = Math.floor(uptime / 86400);
       const hours = Math.floor((uptime % 86400) / 3600);
       
+      const totalSongsPlayed = allGuilds.reduce((sum, g) => sum + (g.songsPlayed || 0), 0);
+      const totalUsersJamming = allGuilds.reduce((sum, g) => sum + (g.usersJamming || 0), 0);
+      
       const stats = {
         activeServers: allGuilds.length,
-        usersJamming: Math.max(allGuilds.length * 15, 1000),
-        songsPlayed: Math.floor(Math.random() * (150000 - 100000) + 100000),
+        usersJamming: Math.max(totalUsersJamming, 0),
+        songsPlayed: Math.max(totalSongsPlayed, 0),
         uptime: `${days}d ${hours}h`,
         uptimePercent: "99.9%"
       };

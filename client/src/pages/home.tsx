@@ -17,10 +17,20 @@ export default function Home() {
   });
 
   useEffect(() => {
-    fetch("/api/stats")
-      .then(res => res.json())
-      .then(data => setStats(data))
-      .catch(err => console.error("Failed to fetch stats:", err));
+    const fetchStats = () => {
+      fetch("/api/stats")
+        .then(res => res.json())
+        .then(data => setStats(data))
+        .catch(err => console.error("Failed to fetch stats:", err));
+    };
+    
+    // Fetch immediately
+    fetchStats();
+    
+    // Refresh every 60 seconds
+    const interval = setInterval(fetchStats, 60000);
+    
+    return () => clearInterval(interval);
   }, []);
 
   const features = [

@@ -27,6 +27,8 @@ export const guildSettings = pgTable("guild_settings", {
   bassBoost: boolean("bass_boost").notNull().default(false),
   nightcore: boolean("nightcore").notNull().default(false),
   vaporwave: boolean("vaporwave").notNull().default(false),
+  songsPlayed: integer("songs_played").notNull().default(0),
+  usersJamming: integer("users_jamming").notNull().default(0),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
