@@ -1,54 +1,54 @@
 import { motion } from "framer-motion";
-import { Music, Zap, Shield, Headphones, Radio, Wind, Sparkles, Sliders } from "lucide-react";
+import { Music, Zap, Sliders, Headphones, Radio, Gamepad2, Clock, Volume2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const features = [
   {
     icon: <Music className="w-12 h-12" />,
-    title: "High-Quality Audio",
-    description: "Crystal clear 320kbps streaming with advanced audio processing for the best listening experience.",
+    title: "YouTube Music Playback",
+    description: "Search and play millions of songs directly from YouTube with instant playback and high quality audio.",
     color: "from-pink-500 to-orange-500"
   },
   {
-    icon: <Zap className="w-12 h-12" />,
-    title: "Lightning Fast",
-    description: "Zero lag playback with optimized infrastructure and global CDN distribution.",
-    color: "from-orange-500 to-yellow-500"
-  },
-  {
-    icon: <Wind className="w-12 h-12" />,
-    title: "Advanced Filtering",
-    description: "Bass boost, nightcore, vaporwave, and more audio effects at your fingertips.",
+    icon: <Sliders className="w-12 h-12" />,
+    title: "14-Band Equalizer",
+    description: "Professional-grade equalizer with 14 adjustable bands to customize your audio perfectly.",
     color: "from-cyan-500 to-blue-500"
   },
   {
-    icon: <Headphones className="w-12 h-12" />,
-    title: "Complete Control",
-    description: "Full control over volume, queue, and playback from our intuitive dashboard.",
-    color: "from-purple-500 to-pink-500"
+    icon: <Zap className="w-12 h-12" />,
+    title: "Speed Control (0.5x - 2.0x)",
+    description: "Adjust playback speed and tempo without changing pitch - perfect for studying or faster listening.",
+    color: "from-orange-500 to-yellow-500"
   },
   {
     icon: <Radio className="w-12 h-12" />,
-    title: "Queue Management",
-    description: "Intelligent queue system with pagination, shuffling, and repeat modes.",
+    title: "Loop & Autoplay",
+    description: "Toggle between loop off, single song loop, and playlist loop. Enable autoplay for continuous music.",
     color: "from-blue-500 to-cyan-500"
   },
   {
-    icon: <Shield className="w-12 h-12" />,
-    title: "Permission System",
-    description: "Granular control with DJ roles, admin-only commands, and user permissions.",
+    icon: <Headphones className="w-12 h-12" />,
+    title: "Lyrics Display",
+    description: "View song lyrics in real-time synchronized with playback. Search for any song's lyrics instantly.",
+    color: "from-purple-500 to-pink-500"
+  },
+  {
+    icon: <Gamepad2 className="w-12 h-12" />,
+    title: "Trivia Games",
+    description: "Play interactive Song Guessing and Bollywood Movie Trivia games with your friends and earn points.",
     color: "from-pink-500 to-rose-500"
   },
   {
-    icon: <Sliders className="w-12 h-12" />,
-    title: "Customizable",
-    description: "Customize prefixes, volumes, roles, and more per server.",
+    icon: <Clock className="w-12 h-12" />,
+    title: "24/7 Mode",
+    description: "Keep the bot in your voice channel continuously playing music even when members disconnect.",
     color: "from-yellow-500 to-orange-500"
   },
   {
-    icon: <Sparkles className="w-12 h-12" />,
-    title: "Premium Effects",
-    description: "Special audio effects and visual enhancements for premium members.",
+    icon: <Volume2 className="w-12 h-12" />,
+    title: "Full Playback Control",
+    description: "Control volume (0-200%), manage queue, skip, pause, resume, and replay with simple commands.",
     color: "from-pink-400 to-cyan-400"
   }
 ];
@@ -68,7 +68,7 @@ export default function Features() {
             </span>
           </h1>
           <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-            Everything you need to manage music in your Discord server
+            Advanced music streaming, games, and complete audio control powered by Lavalink
           </p>
         </motion.div>
 
