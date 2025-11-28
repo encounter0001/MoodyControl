@@ -23,32 +23,24 @@ export function Layout({ children }: { children: React.ReactNode }) {
     <div className="min-h-screen flex flex-col font-sans">
       <header className="fixed top-0 left-0 right-0 z-50 border-b border-pink-500/20 bg-gradient-to-r from-background/80 via-background/80 to-background/80 backdrop-blur-xl">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-          <Link href="/">
-            <a className="flex items-center gap-3 group">
-              <div className="relative w-10 h-10 rounded-lg overflow-hidden ring-2 ring-gradient-to-r from-pink-500 to-cyan-500 group-hover:ring-pink-400 transition-all shadow-[0_0_20px_rgba(255,0,255,0.4)]">
-                <img src={robotLogo} alt="Moody Bot" className="w-full h-full object-cover" />
-              </div>
-              <span className="font-display font-black text-xl tracking-wider bg-gradient-to-r from-pink-400 to-cyan-400 bg-clip-text text-transparent">
-                MOODY<span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-pink-400">BOT</span>
-              </span>
-            </a>
+          <Link href="/" className="flex items-center gap-3 group">
+            <div className="relative w-10 h-10 rounded-lg overflow-hidden ring-2 ring-gradient-to-r from-pink-500 to-cyan-500 group-hover:ring-pink-400 transition-all shadow-[0_0_20px_rgba(255,0,255,0.4)]">
+              <img src={robotLogo} alt="Moody Bot" className="w-full h-full object-cover" />
+            </div>
+            <span className="font-display font-black text-xl tracking-wider bg-gradient-to-r from-pink-400 to-cyan-400 bg-clip-text text-transparent">
+              MOODY<span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-pink-400">BOT</span>
+            </span>
           </Link>
 
           <nav className="hidden md:flex items-center gap-8">
-            <Link href="/">
-              <a className={`text-sm font-bold transition-all duration-300 ${location === '/' ? 'text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-cyan-400' : 'text-gray-400 hover:text-pink-400'}`}>
-                Home
-              </a>
+            <Link href="/" className={`text-sm font-bold transition-all duration-300 ${location === '/' ? 'text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-cyan-400' : 'text-gray-400 hover:text-pink-400'}`}>
+              Home
             </Link>
-            <Link href="/features">
-              <a className={`text-sm font-bold transition-all duration-300 ${location === '/features' ? 'text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-cyan-400' : 'text-gray-400 hover:text-pink-400'}`}>
-                Features
-              </a>
+            <Link href="/features" className={`text-sm font-bold transition-all duration-300 ${location === '/features' ? 'text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-cyan-400' : 'text-gray-400 hover:text-pink-400'}`}>
+              Features
             </Link>
-            <Link href="/commands">
-              <a className={`text-sm font-bold transition-all duration-300 ${location === '/commands' ? 'text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-cyan-400' : 'text-gray-400 hover:text-pink-400'}`}>
-                Commands
-              </a>
+            <Link href="/commands" className={`text-sm font-bold transition-all duration-300 ${location === '/commands' ? 'text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-cyan-400' : 'text-gray-400 hover:text-pink-400'}`}>
+              Commands
             </Link>
             <a href="https://discord.gg/9WJSP4Kqg4" className="text-sm font-bold text-gray-400 hover:text-pink-400 transition-all duration-300">Support</a>
           </nav>
@@ -58,7 +50,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
               <Loader className="w-4 h-4 animate-spin bg-gradient-to-r from-pink-400 to-cyan-400 bg-clip-text text-transparent" />
             ) : isAuthenticated ? (
               <div className="hidden md:flex items-center gap-4">
-                <Link href="/dashboard">
+                <Link href="/dashboard" asChild>
                   <Button className={`gap-2 font-bold rounded-lg ${location.startsWith('/dashboard') ? 'bg-gradient-to-r from-pink-500 to-orange-500 text-white' : 'bg-gradient-to-r from-cyan-500/20 to-blue-500/20 border border-cyan-500/30 text-cyan-300 hover:from-cyan-500/40 hover:to-blue-500/40'}`}>
                     <LayoutDashboard className="w-4 h-4" />
                     Dashboard
