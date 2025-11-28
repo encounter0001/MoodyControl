@@ -1,108 +1,74 @@
-import express from 'express';
-import { registerRoutes } from './routes';
+/**
+ * Simple Cloudflare Worker that proxies API requests
+ * This is a minimal Worker without Express dependencies that cause compatibility issues
+ */
 
-const app = express();
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-
-// Mock session middleware for Workers
-app.use((req, res, next) => {
-  if (!req.session) {
-    req.session = {
-      userId: undefined,
-      accessToken: undefined,
-    };
-  }
-  next();
-});
-
-// Register all API routes
-registerRoutes({} as any, app);
-
-// Export for Cloudflare Workers
 export default {
-  async fetch(request: Request): Promise<Response> {
+  async fetch(request: Request, env: any): Promise<Response> {
     const url = new URL(request.url);
     
-    // API routes
+    // Handle API requests
     if (url.pathname.startsWith('/api/')) {
-      return new Promise((resolve) => {
-        const req = {
-          method: request.method,
-          url: url.pathname + url.search,
-          headers: Object.fromEntries(request.headers),
-          query: Object.fromEntries(url.searchParams),
-          path: url.pathname,
-          session: {
-            userId: undefined,
-            accessToken: undefined,
-          },
-          body: {} as any,
-        };
+      // Get backend URL from environment or fallback to a default
+      const backendUrl = env.BACKEND_URL || 'http://localhost:3000';
+      
+      try {
+        // Proxy the request to the backend
+        const proxyRequest = new Request(
+          backendUrl + url.pathname + url.search,
+          {
+            method: request.method,
+            headers: request.headers,
+            body: request.body,
+          }
+        );
 
-        let body = '';
-        if (request.method !== 'GET') {
-          request.text().then((text) => {
-            try {
-              req.body = JSON.parse(text);
-            } catch {
-              req.body = {};
-            }
-            
-            // Create a simple response handler
-            const res = {
-              statusCode: 200,
-              headers: { 'Content-Type': 'application/json' },
-              json: (data: any) => {
-                resolve(new Response(JSON.stringify(data), {
-                  status: res.statusCode,
-                  headers: res.headers,
-                }));
-              },
-              status: (code: number) => {
-                res.statusCode = code;
-                return res;
-              },
-              redirect: (url: string) => {
-                resolve(new Response(null, {
-                  status: 302,
-                  headers: { Location: url },
-                }));
-              },
-            };
+        const response = await fetch(proxyRequest);
+        
+        // Return the backend response with proper CORS headers
+        return new Response(response.body, {
+          status: response.status,
+          statusText: response.statusText,
+          headers: new Headers({
+            ...Object.fromEntries(response.headers.entries()),
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+            'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+          }),
+        });
+      } catch (error) {
+        return new Response(
+          JSON.stringify({
+            error: 'Failed to connect to backend',
+            message: error instanceof Error ? error.message : 'Unknown error',
+          }),
+          {
+            status: 503,
+            headers: {
+              'Content-Type': 'application/json',
+              'Access-Control-Allow-Origin': '*',
+            },
+          }
+        );
+      }
+    }
 
-            // Call the Express middleware/routes
-            app._router.handle(req, res);
-          });
-        } else {
-          const res = {
-            statusCode: 200,
-            headers: { 'Content-Type': 'application/json' },
-            json: (data: any) => {
-              resolve(new Response(JSON.stringify(data), {
-                status: res.statusCode,
-                headers: res.headers,
-              }));
-            },
-            status: (code: number) => {
-              res.statusCode = code;
-              return res;
-            },
-            redirect: (url: string) => {
-              resolve(new Response(null, {
-                status: 302,
-                headers: { Location: url },
-              }));
-            },
-          };
-
-          app._router.handle(req, res);
-        }
+    // Handle OPTIONS requests for CORS
+    if (request.method === 'OPTIONS') {
+      return new Response(null, {
+        status: 200,
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+          'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+        },
       });
     }
 
-    // Serve static files or fallback to index.html
-    return new Response('404 Not Found', { status: 404 });
+    // Default: return 404
+    return new Response(JSON.stringify({ error: 'Not Found' }), {
+      status: 404,
+      headers: { 'Content-Type': 'application/json' },
+    });
   },
 };
