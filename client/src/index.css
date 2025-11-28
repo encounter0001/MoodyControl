@@ -185,14 +185,37 @@ h1, h2, h3, h4, h5, h6 {
   background: linear-gradient(180deg, #ff33ff, #00ffff);
 }
 
-/* Button transitions */
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+
+/* Mobile optimizations */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Button transitions with GPU acceleration */
 button {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform, box-shadow;
+  transform: translateZ(0);
+}
+
+button:active {
+  transform: scale(0.98);
 }
 
 /* Input focus effects */
 input, textarea, select {
   transition: all 0.3s ease;
+  will-change: box-shadow, border-color;
 }
 
 input:focus, textarea:focus, select:focus {
@@ -200,16 +223,141 @@ input:focus, textarea:focus, select:focus {
   border-color: hsl(var(--primary));
 }
 
+/* Link smooth hover */
+a {
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
 /* Smooth page transitions */
 @keyframes fadeIn {
   from {
     opacity: 0;
+    transform: translateY(10px);
   }
   to {
     opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
   }
 }
 
 main {
   animation: fadeIn 0.5s ease-in;
+  will-change: contents;
+}
+
+/* Smooth card animations */
+.card-enter {
+  animation: slideInUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Section animations */
+section {
+  will-change: contents;
+}
+
+/* Smooth hover effects with performance */
+@media (hover: hover) {
+  button:hover {
+    transform: translateY(-2px);
+  }
+  
+  a:hover {
+    color: hsl(var(--primary));
+  }
+}
+
+/* Touch-friendly for mobile */
+@media (hover: none) {
+  button:active {
+    transform: scale(0.95) translateY(-1px);
+  }
+}
+
+/* Smooth color transitions */
+.text-gradient {
+  background-size: 200% 200%;
+  animation: gradient-shift 3s ease infinite;
+  will-change: background-position;
+}
+
+/* Loading animation */
+@keyframes spin-smooth {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-smooth {
+  animation: spin-smooth 2s linear infinite;
+  will-change: transform;
+}
+
+/* Pulse animation for live indicators */
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 20px rgba(255, 0, 255, 0.5);
+  }
+  50% {
+    opacity: 0.7;
+    box-shadow: 0 0 30px rgba(255, 0, 255, 0.3);
+  }
+}
+
+.pulse-glow {
+  animation: pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
