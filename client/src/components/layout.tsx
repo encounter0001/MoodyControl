@@ -11,7 +11,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import robotLogo from "@assets/generated_images/neon_robot_music_bot_logo.png";
+import robotLogo from "@assets/moody_music_logo.png";
 import { useState } from "react";
 
 export function Layout({ children }: { children: React.ReactNode }) {
