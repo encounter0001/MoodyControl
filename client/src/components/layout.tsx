@@ -107,18 +107,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
         {mobileOpen && (
           <div className="md:hidden border-t border-pink-500/20 bg-gradient-to-b from-background/90 to-background/80 backdrop-blur-xl">
             <div className="container mx-auto px-4 py-4 space-y-4">
-              <Link href="/">
-                <a className="block text-sm font-bold text-gray-400 hover:text-pink-400">Home</a>
-              </Link>
-              <Link href="/features">
-                <a className="block text-sm font-bold text-gray-400 hover:text-pink-400">Features</a>
-              </Link>
-              <Link href="/commands">
-                <a className="block text-sm font-bold text-gray-400 hover:text-pink-400">Commands</a>
-              </Link>
+              <Link href="/" className="block text-sm font-bold text-gray-400 hover:text-pink-400">Home</Link>
+              <Link href="/features" className="block text-sm font-bold text-gray-400 hover:text-pink-400">Features</Link>
+              <Link href="/commands" className="block text-sm font-bold text-gray-400 hover:text-pink-400">Commands</Link>
               <a href="https://discord.gg/9WJSP4Kqg4" className="block text-sm font-bold text-gray-400 hover:text-pink-400">Support</a>
               {isAuthenticated && (
-                <Link href="/dashboard">
+                <Link href="/dashboard" asChild>
                   <Button className="w-full font-bold bg-gradient-to-r from-pink-500 to-orange-500 text-white rounded-lg">
                     Dashboard
                   </Button>
@@ -159,9 +153,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
             <div>
               <h4 className="font-bold mb-4 text-white">Product</h4>
               <ul className="space-y-2 text-sm text-gray-400">
-                <li><Link href="/features"><a className="hover:text-pink-400 transition-colors">Features</a></Link></li>
-                <li><Link href="/premium"><a className="hover:text-pink-400 transition-colors">Premium</a></Link></li>
-                <li><Link href="/changelog"><a className="hover:text-pink-400 transition-colors">Changelog</a></Link></li>
+                <li><Link href="/features" className="hover:text-pink-400 transition-colors">Features</Link></li>
+                <li><Link href="/premium" className="hover:text-pink-400 transition-colors">Premium</Link></li>
+                <li><Link href="/changelog" className="hover:text-pink-400 transition-colors">Changelog</Link></li>
               </ul>
             </div>
 
@@ -170,15 +164,15 @@ export function Layout({ children }: { children: React.ReactNode }) {
               <ul className="space-y-2 text-sm text-gray-400">
                 <li><a href="https://discord.com/oauth2/authorize?client_id=1344874349580255293&permissions=321609335434304&integration_type=0&scope=bot" className="hover:text-pink-400 transition-colors">Add Bot</a></li>
                 <li><a href="https://discord.gg/9WJSP4Kqg4" className="hover:text-pink-400 transition-colors">Support Server</a></li>
-                <li><Link href="/community"><a className="hover:text-pink-400 transition-colors">Community</a></Link></li>
+                <li><Link href="/community" className="hover:text-pink-400 transition-colors">Community</Link></li>
               </ul>
             </div>
 
             <div>
               <h4 className="font-bold mb-4 text-white">Legal</h4>
               <ul className="space-y-2 text-sm text-gray-400">
-                <li><Link href="/privacy"><a className="hover:text-pink-400 transition-colors">Privacy</a></Link></li>
-                <li><Link href="/terms"><a className="hover:text-pink-400 transition-colors">Terms</a></Link></li>
+                <li><Link href="/privacy" className="hover:text-pink-400 transition-colors">Privacy</Link></li>
+                <li><Link href="/terms" className="hover:text-pink-400 transition-colors">Terms</Link></li>
               </ul>
             </div>
           </div>
