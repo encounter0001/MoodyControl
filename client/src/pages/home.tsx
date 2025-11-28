@@ -419,9 +419,7 @@ export default function Home() {
                     whileInView={{ scale: 1, rotate: 0 }}
                     viewport={{ once: true, margin: "-50px" }}
                     transition={{ delay: i * 0.15 + 0.2, duration: 0.8, type: "spring" }}
-                    animate={{ scale: [1, 1.2, 1], rotate: [0, 10, -10, 0] }}
                     whileHover={{ scale: 1.4, rotate: 360 }}
-                    transitionEnd={{ rotate: 0 }}
                   >
                     {stat.icon}
                   </motion.div>
@@ -431,7 +429,7 @@ export default function Home() {
                     initial={{ opacity: 0, scale: 0 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true, margin: "-50px" }}
-                    transition={{ delay: i * 0.15 + 0.4, duration: 0.7, type: "spring" }}
+                    transition={{ delay: i * 0.15 + 0.4, duration: 0.7 }}
                   >
                     {stat.value}
                   </motion.div>
