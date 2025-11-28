@@ -9,75 +9,159 @@ import { motion } from "framer-motion";
 const commands = [
   {
     name: "play",
-    description: "Play a song from YouTube",
-    usage: "/play <query>",
+    description: "Play a song from YouTube or search query",
+    usage: "m!play <query>",
     category: "Music",
     icon: Play,
     args: [
-      { name: "query", description: "YouTube URL or search query", required: true }
+      { name: "query", description: "YouTube URL or song search query", required: true }
     ]
   },
   {
-    name: "pause",
-    description: "Pause the current song",
-    usage: "/pause",
-    category: "Music",
-    icon: Pause,
-    args: []
-  },
-  {
-    name: "resume",
-    description: "Resume the paused song",
-    usage: "/resume",
+    name: "join",
+    description: "Connect the bot to your voice channel",
+    usage: "m!join",
     category: "Music",
     icon: Play,
-    args: []
-  },
-  {
-    name: "stop",
-    description: "Stop playing music and clear the queue",
-    usage: "/stop",
-    category: "Music",
-    icon: Square,
     args: []
   },
   {
     name: "skip",
-    description: "Skip the current song",
-    usage: "/skip",
+    description: "Skip the current song (aliases: s, next)",
+    usage: "m!skip",
     category: "Music",
     icon: SkipForward,
     args: []
   },
   {
-    name: "queue",
-    description: "Show the current music queue",
-    usage: "/queue [page]",
-    category: "Queue",
-    icon: ListMusic,
-    args: [
-      { name: "page", description: "Page number of the queue", required: false }
-    ]
+    name: "stop",
+    description: "Stop playing and disconnect bot (aliases: leave, dc)",
+    usage: "m!stop",
+    category: "Music",
+    icon: Square,
+    args: []
+  },
+  {
+    name: "current",
+    description: "Show details of the currently playing song (aliases: np, nowplaying)",
+    usage: "m!current",
+    category: "Music",
+    icon: Music,
+    args: []
   },
   {
     name: "volume",
-    description: "Adjust the music volume (0-200%)",
-    usage: "/volume <level>",
-    category: "Settings",
+    description: "Control the playback volume (0-200%)",
+    usage: "m!volume <level>",
+    category: "Music",
     icon: Volume2,
     args: [
       { name: "level", description: "Volume level (0-200)", required: true }
     ]
   },
   {
+    name: "loop",
+    description: "Cycle through loop modes (Off, Single, All)",
+    usage: "m!loop",
+    category: "Music",
+    icon: Music,
+    args: []
+  },
+  {
+    name: "replay",
+    description: "Replay the current song from the beginning",
+    usage: "m!replay",
+    category: "Music",
+    icon: Play,
+    args: []
+  },
+  {
+    name: "autoplay",
+    description: "Toggle autoplay to automatically play related songs",
+    usage: "m!autoplay",
+    category: "Music",
+    icon: Music,
+    args: []
+  },
+  {
+    name: "lyrics",
+    description: "Fetch and display song lyrics",
+    usage: "m!lyrics [query]",
+    category: "Music",
+    icon: Music,
+    args: [
+      { name: "query", description: "Song name (optional, uses current if not provided)", required: false }
+    ]
+  },
+  {
+    name: "eq",
+    description: "Access the advanced equalizer and audio effects (aliases: equalizer, filter)",
+    usage: "m!eq",
+    category: "Audio Effects",
+    icon: Music,
+    args: []
+  },
+  {
+    name: "speed",
+    description: "Control playback speed/tempo (0.5x - 2.0x)",
+    usage: "m!speed <value>",
+    category: "Audio Effects",
+    icon: Music,
+    args: [
+      { name: "value", description: "Speed value (0.5 to 2.0)", required: false }
+    ]
+  },
+  {
+    name: "games",
+    description: "Start an interactive trivia game - Song or Movie Trivia (aliases: game)",
+    usage: "m!games [rounds]",
+    category: "Games",
+    icon: Music,
+    args: [
+      { name: "rounds", description: "Number of trivia rounds (default: 5)", required: false }
+    ]
+  },
+  {
+    name: "trivia stop",
+    description: "Stop the currently running trivia game",
+    usage: "m!trivia stop",
+    category: "Games",
+    icon: Music,
+    args: []
+  },
+  {
     name: "help",
-    description: "Show all available commands",
-    usage: "/help [command]",
+    description: "Show all available commands and their usage",
+    usage: "m!help",
     category: "Utility",
     icon: HelpCircle,
+    args: []
+  },
+  {
+    name: "stats",
+    description: "Display bot statistics (servers, active players)",
+    usage: "m!stats",
+    category: "Utility",
+    icon: Music,
+    args: []
+  },
+  {
+    name: "prefix",
+    description: "Change the bot prefix for your server (Admin only)",
+    usage: "m!prefix <new-prefix>",
+    category: "Admin",
+    icon: Music,
     args: [
-      { name: "command", description: "Get detailed help for a specific command", required: false }
+      { name: "new-prefix", description: "New prefix (max 5 characters)", required: true }
     ]
+  },
+  {
+    name: "247",
+    description: "Toggle 24/7 mode - bot stays in voice channel (Admin only)",
+    usage: "m!247",
+    category: "Admin",
+    icon: Music,
+    args: []
   }
 ];
 
