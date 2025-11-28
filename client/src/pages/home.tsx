@@ -75,54 +75,109 @@ export default function Home() {
     <div className="relative overflow-hidden">
       {/* Hero Section */}
       <section className="relative min-h-[90vh] flex items-center justify-center pt-20 overflow-hidden bg-gradient-to-br from-background via-background to-background">
-        {/* Animated Gradient Background */}
+        {/* Animated Gradient Background with Particles */}
         <div className="absolute inset-0 z-0 overflow-hidden">
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-pink-500/30 rounded-full mix-blend-screen filter blur-3xl animate-pulse opacity-20" />
-          <div className="absolute top-1/2 right-1/4 w-96 h-96 bg-cyan-500/30 rounded-full mix-blend-screen filter blur-3xl animate-pulse opacity-20" />
-          <div className="absolute bottom-0 left-1/2 w-96 h-96 bg-orange-500/20 rounded-full mix-blend-screen filter blur-3xl animate-pulse opacity-20" />
+          {/* Floating Orbs */}
+          <motion.div 
+            className="absolute top-0 left-1/4 w-96 h-96 bg-pink-500/30 rounded-full mix-blend-screen filter blur-3xl opacity-30"
+            animate={{ y: [0, 40, 0], x: [0, 20, 0], scale: [1, 1.1, 1] }}
+            transition={{ duration: 8, repeat: Infinity }}
+          />
+          <motion.div 
+            className="absolute top-1/2 right-1/4 w-96 h-96 bg-cyan-500/30 rounded-full mix-blend-screen filter blur-3xl opacity-30"
+            animate={{ y: [0, -40, 0], x: [0, -20, 0], scale: [1, 0.9, 1] }}
+            transition={{ duration: 10, repeat: Infinity, delay: 1 }}
+          />
+          <motion.div 
+            className="absolute bottom-0 left-1/2 w-96 h-96 bg-orange-500/20 rounded-full mix-blend-screen filter blur-3xl opacity-30"
+            animate={{ y: [0, 30, 0], x: [0, 30, 0], scale: [1, 1.05, 1] }}
+            transition={{ duration: 9, repeat: Infinity, delay: 0.5 }}
+          />
+          
+          {/* Floating Particles */}
+          {[...Array(8)].map((_, i) => (
+            <motion.div
+              key={`particle-${i}`}
+              className="absolute w-2 h-2 bg-gradient-to-r from-pink-400 to-cyan-400 rounded-full"
+              initial={{ 
+                x: Math.random() * window.innerWidth,
+                y: Math.random() * window.innerHeight,
+                opacity: 0
+              }}
+              animate={{
+                y: [0, -300, 0],
+                x: [0, Math.random() * 100 - 50, 0],
+                opacity: [0, 0.6, 0]
+              }}
+              transition={{ 
+                duration: 4 + i * 0.5,
+                repeat: Infinity,
+                delay: i * 0.2
+              }}
+            />
+          ))}
+          
           <div className="absolute inset-0 bg-gradient-to-b from-background/0 via-background/50 to-background" />
         </div>
 
         <div className="container relative z-10 px-4 text-center">
           <motion.div 
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-pink-500/20 to-cyan-500/20 border border-pink-500/30 text-transparent bg-clip-text font-semibold mb-8 backdrop-blur-sm"
+            initial={{ opacity: 0, scale: 0.5, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ duration: 0.7, type: "spring", stiffness: 100 }}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-pink-500/20 to-cyan-500/20 border border-pink-500/30 text-transparent bg-clip-text font-semibold mb-8 backdrop-blur-sm hover:scale-110 transition-transform duration-300 animate-glow-pulse"
           >
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-pink-500 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-pink-500"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-pink-500 animate-pulse-ring"></span>
             </span>
-            <span className="bg-gradient-to-r from-pink-400 to-cyan-400 bg-clip-text text-transparent font-bold">
+            <motion.span 
+              className="bg-gradient-to-r from-pink-400 to-cyan-400 bg-clip-text text-transparent font-bold"
+              animate={{ textShadow: ["0 0 10px rgba(255,0,255,0.5)", "0 0 20px rgba(0,255,255,0.5)", "0 0 10px rgba(255,0,255,0.5)"] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            >
               NOW LIVE - v3.0
-            </span>
+            </motion.span>
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            initial={{ opacity: 0, y: 40, rotateX: -20 }}
+            animate={{ opacity: 1, y: 0, rotateX: 0 }}
+            transition={{ duration: 0.9, delay: 0.2, type: "spring" }}
           >
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-display font-black tracking-tighter mb-6 leading-tight">
-              <span className="bg-gradient-to-r from-pink-400 via-orange-400 to-cyan-400 bg-clip-text text-transparent drop-shadow-2xl">
+              <motion.span 
+                className="inline-block bg-gradient-to-r from-pink-400 via-orange-400 to-cyan-400 bg-clip-text text-transparent drop-shadow-2xl"
+                animate={{ filter: ["drop-shadow(0 0 5px rgba(255,0,255,0))", "drop-shadow(0 0 20px rgba(255,0,255,0.5))", "drop-shadow(0 0 5px rgba(255,0,255,0))"] }}
+                transition={{ duration: 3, repeat: Infinity }}
+              >
                 FIND YOUR OWN
-              </span>
+              </motion.span>
               <br />
-              <span className="bg-gradient-to-r from-cyan-400 via-pink-400 to-orange-400 bg-clip-text text-transparent">
+              <motion.span 
+                className="inline-block bg-gradient-to-r from-cyan-400 via-pink-400 to-orange-400 bg-clip-text text-transparent"
+                animate={{ filter: ["drop-shadow(0 0 5px rgba(0,255,255,0))", "drop-shadow(0 0 20px rgba(0,255,255,0.5))", "drop-shadow(0 0 5px rgba(0,255,255,0))"] }}
+                transition={{ duration: 3, repeat: Infinity, delay: 0.5 }}
+              >
                 MOOD WITH MOODY
-              </span>
+              </motion.span>
             </h1>
           </motion.div>
 
           <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            transition={{ duration: 0.9, delay: 0.5 }}
             className="text-lg md:text-2xl text-gray-300 max-w-3xl mx-auto mb-12 leading-relaxed"
           >
             The most powerful music bot for Discord. Studio-quality audio, 
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-orange-400 font-bold"> advanced effects, </span>
+            <motion.span 
+              className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-orange-400 font-bold"
+              animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
+              transition={{ duration: 3, repeat: Infinity }}
+            >
+              {" "}advanced effects,{" "}
+            </motion.span>
             and complete control.
           </motion.p>
 
