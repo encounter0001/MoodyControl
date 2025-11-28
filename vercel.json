@@ -1,14 +1,17 @@
 {
   "buildCommand": "npm run build",
-  "outputDirectory": "dist",
+  "outputDirectory": "dist/public",
+  "installCommand": "npm ci",
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "http://localhost:3001/api/$1"
+    }
+  ],
   "env": {
     "NODE_ENV": "production"
   },
-  "functions": {
-    "server/index.ts": {
-      "runtime": "nodejs20.x",
-      "memory": 1024,
-      "maxDuration": 60
-    }
+  "env.production": {
+    "NODE_ENV": "production"
   }
 }
