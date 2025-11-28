@@ -2,7 +2,6 @@ import { useAuth } from "@/lib/auth-context";
 import { Button } from "@/components/ui/button";
 import { Music, Zap, Globe, Headphones, Server, Sparkles, Volume2 } from "lucide-react";
 import { Link } from "wouter";
-import heroBg from "@assets/generated_images/cyberpunk_abstract_music_waves_background.png";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
@@ -75,15 +74,13 @@ export default function Home() {
   return (
     <div className="relative overflow-hidden">
       {/* Hero Section */}
-      <section className="relative min-h-[90vh] flex items-center justify-center pt-20 overflow-hidden">
-        {/* Background Image with Overlay */}
-        <div className="absolute inset-0 z-0">
-          <img 
-            src={heroBg} 
-            alt="Background" 
-            className="w-full h-full object-cover opacity-30"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/70 to-background" />
+      <section className="relative min-h-[90vh] flex items-center justify-center pt-20 overflow-hidden bg-gradient-to-br from-background via-background to-background">
+        {/* Animated Gradient Background */}
+        <div className="absolute inset-0 z-0 overflow-hidden">
+          <div className="absolute top-0 left-1/4 w-96 h-96 bg-pink-500/30 rounded-full mix-blend-screen filter blur-3xl animate-pulse opacity-20" />
+          <div className="absolute top-1/2 right-1/4 w-96 h-96 bg-cyan-500/30 rounded-full mix-blend-screen filter blur-3xl animate-pulse opacity-20" />
+          <div className="absolute bottom-0 left-1/2 w-96 h-96 bg-orange-500/20 rounded-full mix-blend-screen filter blur-3xl animate-pulse opacity-20" />
+          <div className="absolute inset-0 bg-gradient-to-b from-background/0 via-background/50 to-background" />
         </div>
 
         <div className="container relative z-10 px-4 text-center">
