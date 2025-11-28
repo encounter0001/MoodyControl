@@ -104,13 +104,13 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <h1 className="text-6xl md:text-7xl lg:text-8xl font-display font-black tracking-tighter mb-6">
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-display font-black tracking-tighter mb-6 leading-tight">
               <span className="bg-gradient-to-r from-pink-400 via-orange-400 to-cyan-400 bg-clip-text text-transparent drop-shadow-2xl">
-                FEEL THE
+                FIND YOUR OWN
               </span>
               <br />
               <span className="bg-gradient-to-r from-cyan-400 via-pink-400 to-orange-400 bg-clip-text text-transparent">
-                RHYTHM
+                MOOD WITH MOODY
               </span>
             </h1>
           </motion.div>
