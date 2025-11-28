@@ -174,7 +174,7 @@ export async function registerRoutes(
       
       const stats = {
         activeServers: activeServersCount,
-        usersJamming: Math.max(Math.floor(totalUsersJamming * scaleFactor), Math.floor(activeServersCount * 8)),
+        usersJamming: Math.max(Math.floor(totalUsersJamming * scaleFactor), 1000),
         songsPlayed: Math.max(Math.floor(totalSongsPlayed * scaleFactor), Math.floor(activeServersCount * 850)),
         uptime: `${days}d ${hours}h`,
         uptimePercent: "99.9%"
