@@ -1,0 +1,73 @@
+2025-11-28T03:42:27.073Z	Initializing build environment...
+2025-11-28T03:42:29.651Z	Success: Finished initializing build environment
+2025-11-28T03:42:30.093Z	Cloning repository...
+2025-11-28T03:42:37.777Z	Restoring from dependencies cache
+2025-11-28T03:42:37.780Z	Restoring from build output cache
+2025-11-28T03:42:37.784Z	Detected the following tools from environment: npm@10.9.2, nodejs@22.16.0
+2025-11-28T03:42:38.110Z	Installing project dependencies: npm clean-install --progress=false
+2025-11-28T03:42:44.163Z	npm warn deprecated @esbuild-kit/core-utils@3.3.2: Merged into tsx: https://tsx.is
+2025-11-28T03:42:44.215Z	npm warn deprecated @esbuild-kit/esm-loader@2.6.5: Merged into tsx: https://tsx.is
+2025-11-28T03:42:49.556Z	
+2025-11-28T03:42:49.556Z	added 469 packages, and audited 470 packages in 10s
+2025-11-28T03:42:49.556Z	
+2025-11-28T03:42:49.558Z	50 packages are looking for funding
+2025-11-28T03:42:49.558Z	  run `npm fund` for details
+2025-11-28T03:42:49.603Z	
+2025-11-28T03:42:49.603Z	8 vulnerabilities (2 low, 6 moderate)
+2025-11-28T03:42:49.603Z	
+2025-11-28T03:42:49.603Z	To address issues that do not require attention, run:
+2025-11-28T03:42:49.603Z	  npm audit fix
+2025-11-28T03:42:49.603Z	
+2025-11-28T03:42:49.603Z	To address all issues (including breaking changes), run:
+2025-11-28T03:42:49.603Z	  npm audit fix --force
+2025-11-28T03:42:49.604Z	
+2025-11-28T03:42:49.604Z	Run `npm audit` for details.
+2025-11-28T03:42:50.008Z	Executing user build command: npm run build
+2025-11-28T03:42:50.242Z	
+2025-11-28T03:42:50.242Z	> rest-express@1.0.0 build
+2025-11-28T03:42:50.243Z	> tsx script/build.ts
+2025-11-28T03:42:50.245Z	
+2025-11-28T03:42:50.993Z	building client...
+2025-11-28T03:42:51.181Z	vite v7.1.12 building for production...
+2025-11-28T03:42:51.450Z	transforming...
+2025-11-28T03:42:55.282Z	✓ 2253 modules transformed.
+2025-11-28T03:42:55.750Z	rendering chunks...
+2025-11-28T03:42:55.757Z	[meta-images] no Replit deployment domain found, skipping meta tag updates
+2025-11-28T03:42:55.765Z	computing gzip size...
+2025-11-28T03:42:55.792Z	../dist/public/index.html                              1.56 kB │ gzip:   0.66 kB
+2025-11-28T03:42:55.793Z	../dist/public/assets/moody_music_logo-B4n1ypyU.png  761.41 kB
+2025-11-28T03:42:55.793Z	../dist/public/assets/index-mE1d3jle.css             152.83 kB │ gzip:  22.49 kB
+2025-11-28T03:42:55.793Z	../dist/public/assets/index-DyP-1mVd.js              573.85 kB │ gzip: 176.77 kB
+2025-11-28T03:42:55.793Z	
+2025-11-28T03:42:55.793Z	(!) Some chunks are larger than 500 kB after minification. Consider:
+2025-11-28T03:42:55.793Z	- Using dynamic import() to code-split the application
+2025-11-28T03:42:55.793Z	- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+2025-11-28T03:42:55.793Z	- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+2025-11-28T03:42:55.793Z	✓ built in 4.38s
+2025-11-28T03:42:55.793Z	building server...
+2025-11-28T03:42:55.920Z	
+2025-11-28T03:42:55.924Z	  dist/index.cjs  1.1mb ⚠️
+2025-11-28T03:42:55.924Z	
+2025-11-28T03:42:55.924Z	⚡ Done in 124ms
+2025-11-28T03:42:56.016Z	Success: Build command completed
+2025-11-28T03:42:56.197Z	Executing user deploy command: npx wrangler deploy
+2025-11-28T03:42:57.335Z	npm warn exec The following package was not found and will be installed: wrangler@4.51.0
+2025-11-28T03:43:23.013Z	
+2025-11-28T03:43:23.014Z	 ⛅️ wrangler 4.51.0
+2025-11-28T03:43:23.014Z	───────────────────
+2025-11-28T03:43:23.079Z	▲ [WARNING] Processing wrangler.toml configuration:
+2025-11-28T03:43:23.080Z	
+2025-11-28T03:43:23.080Z	    - Unexpected fields found in build field: "main"
+2025-11-28T03:43:23.080Z	    - Unexpected fields found in top-level field: "type","zone_id"
+2025-11-28T03:43:23.080Z	
+2025-11-28T03:43:23.080Z	
+2025-11-28T03:43:23.081Z	
+2025-11-28T03:43:23.081Z	✘ [ERROR] Processing wrangler.toml configuration:
+2025-11-28T03:43:23.081Z	
+2025-11-28T03:43:23.081Z	    - Expected "triggers.crons" to be of type array, but got {"crons":{"crons":[]}}.
+2025-11-28T03:43:23.081Z	
+2025-11-28T03:43:23.081Z	
+2025-11-28T03:43:23.100Z	
+2025-11-28T03:43:23.103Z	Cloudflare collects anonymous telemetry about your usage of Wrangler. Learn more at https://github.com/cloudflare/workers-sdk/tree/main/packages/wrangler/telemetry.md
+2025-11-28T03:43:23.138Z	🪵  Logs were written to "/opt/buildhome/.config/.wrangler/logs/wrangler-2025-11-28_03-43-22_454.log"
+2025-11-28T03:43:26.393Z	Failed: error occurred while running deploy command
