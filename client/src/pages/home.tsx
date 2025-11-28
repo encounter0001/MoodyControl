@@ -219,7 +219,7 @@ export default function Home() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {[
               { label: "Active Servers", value: stats.activeServers.toLocaleString(), icon: "🎵" },
-              { label: "Users Jamming", value: (Math.floor(stats.usersJamming / 1000)).toLocaleString() + "K+", icon: "👥" },
+              { label: "Vibing Now", value: (Math.floor(stats.usersJamming / 1000)).toLocaleString() + "K+", icon: "🔥" },
               { label: "Songs Played", value: (Math.floor(stats.songsPlayed / 1000)).toLocaleString() + "K+", icon: "🎶" },
               { label: "Uptime", value: stats.uptimePercent, icon: "⚡" },
             ].map((stat, i) => (
