@@ -1,3 +1,5 @@
 name = 'moodypremium'
 main = "server/cloudflare-worker.ts"
 compatibility_date = "2025-11-28"
+
+compatibility_flags = ["nodejs_compat"]
