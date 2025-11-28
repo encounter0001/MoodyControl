@@ -1,0 +1,16 @@
+name = "moody-music-bot"
+type = "javascript"
+main = "dist/worker.js"
+compatibility_date = "2025-11-28"
+
+[build]
+command = "npm run build:worker"
+
+[env.production]
+name = "moody-music-bot-prod"
+
+[[env.production.env.vars]]
+ENVIRONMENT = "production"
+
+[triggers]
+crons = []
